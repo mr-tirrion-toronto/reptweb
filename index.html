@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mr Tirrion Toronto — Portfolio</title>
 <meta name="description" content="Portfolio of Mr Tirrion Toronto: apps, websites, documents, media and more.">
+<meta property="og:title" content="Mr Tirrion Toronto — Cybersecurity &amp; IT Portfolio"><meta property="og:description" content="Cybersecurity student, IT problem solver and builder of security tools in Arusha, Tanzania."><meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Tirrion Toronto","jobTitle":"Cybersecurity student and IT problem solver","address":{"@type":"PostalAddress","addressLocality":"Arusha","addressCountry":"TZ"},"sameAs":["https://github.com/mr-tirrion-toronto"]}</script>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -108,6 +110,14 @@ body.has-bot{padding-bottom:var(--adbot,60px)}body.has-bot #toast{bottom:calc(va
 .card.native .adbox{padding:0}
 @media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.crest{max-width:320px;margin:auto;order:-1}header{flex-wrap:wrap}nav a{padding:8px 11px;font-size:13px}.brand small{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}}
+#loginBtn{height:46px}body.admin #loginBtn{display:none}
+#loginModal{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:#05030dcc;backdrop-filter:blur(8px);padding:16px}
+#loginModal.open{display:grid;animation:fadein .2s}@keyframes fadein{from{opacity:0}}
+.lbox{position:relative;width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 30px 90px #8b5cf655}
+.lbox .lg{width:76px;height:76px;margin:0 auto 6px}.pwrow{display:flex;gap:6px;align-items:center}
+#lmMsg{color:var(--bad);font-size:13px;min-height:20px;margin:8px 0}
+.lx{position:absolute;right:14px;top:12px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#05030d;color:var(--ink);cursor:pointer}
+footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -120,8 +130,7 @@ body.has-bot{padding-bottom:var(--adbot,60px)}body.has-bot #toast{bottom:calc(va
 <header>
   <a class="brand" href="#top" aria-label="Mr Tirrion Toronto — home"><i class="lg" role="img" aria-label="MT eagle logo"></i><span><b>MT</b><small id="brandName">Tirrion Toronto</small></span></a>
   <nav id="nav" aria-label="Main"><i id="blob"></i><a href="#top" class="on">Home</a><a href="#work">Work</a><a href="#about">About</a></nav>
-  <div id="loginPill"><span class="lbl">LOGIN</span>
-    <form id="loginForm" autocomplete="on"><input id="em" type="email" placeholder="Email" required autocomplete="username" aria-label="Email"><input id="pw" type="password" placeholder="Password" required autocomplete="current-password" aria-label="Password"><button type="button" class="eye" id="eye">Show</button><button class="lq sm" type="submit"><span>Enter</span></button></form></div>
+  <button class="lq sm" id="loginBtn" type="button"><span>LOGIN</span></button>
   <button class="lq sm" id="outBtn" style="display:none"><span>Log out</span></button>
 </header>
 
@@ -134,7 +143,7 @@ body.has-bot{padding-bottom:var(--adbot,60px)}body.has-bot #toast{bottom:calc(va
   <section id="work"><div class="wrap"><h2>My work</h2><p class="sub">Apps, websites, documents, media and downloads.</p><div class="chips" id="chips"></div><div class="grid" id="grid"></div></div></section>
   <div class="adslot" data-pl="banner_mid" aria-label="Sponsored"></div>
   <section id="about"><div class="wrap"><h2>About me</h2><p class="about" id="aboutTxt"></p><div class="soc" id="soc"></div></div></section>
-  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto</div></footer>
+  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></div></footer>
 </main>
 
 <main id="adm"><div class="wrap">
@@ -178,6 +187,8 @@ body.has-bot{padding-bottom:var(--adbot,60px)}body.has-bot #toast{bottom:calc(va
 
 <aside class="sticky bot" id="stBot" aria-label="Sponsored"><div class="adbox"></div><button class="x" aria-label="Close ad">&times;</button></aside>
 <div class="panel setup" id="setup"><h2 style="font-size:24px">Backend not reachable</h2><p class="sub">The Supabase library could not load. Check your internet connection and reload.</p></div>
+<div id="loginModal" role="dialog" aria-modal="true" aria-label="Admin login"><div class="lbox"><button class="lx" data-close type="button" aria-label="Close">&times;</button><i class="lg"></i><h2 style="text-align:center;font-size:26px">Admin login</h2>
+<form id="loginForm" autocomplete="on"><label for="em">Email</label><input id="em" type="email" required autocomplete="username"><label for="pw">Password</label><div class="pwrow"><input id="pw" type="password" required autocomplete="current-password"><button type="button" class="eye" id="eye">Show</button></div><div id="lmMsg" role="alert"></div><button class="lq" id="goBtn" type="submit" style="width:100%"><span>Enter</span></button><p style="text-align:center;margin-top:12px"><button type="button" class="eye" id="forgot">Forgot password?</button></p></form></div></div>
 <div id="toast" role="status"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -199,9 +210,9 @@ if(!window.supabase){$('#setup').style.display='block'}else{sb=supabase.createCl
 
 async function init(){
   $('#yr').textContent=new Date().getFullYear();
-  await loadSettings();await loadWorks();await loadAds();
-  const {data:{session}}=await sb.auth.getSession();await applyAuth(session);
-  sb.auth.onAuthStateChange((_e,s)=>applyAuth(s));
+  const ready=(async()=>{await loadSettings();await loadWorks();await loadAds()})();
+  sb.auth.onAuthStateChange((_e,sess)=>{setTimeout(async()=>{await ready;applyAuth(sess)},0)});
+  await ready;
 }
 async function loadSettings(){
   const {data}=await sb.from('pf_settings').select('*').eq('id',1).maybeSingle();settings=data||{};
@@ -259,7 +270,17 @@ async function applyAuth(session){
   if(ok){fillSettingsForm();await loadWorks();if(session.user.user_metadata?.must_change){$$('.tabs button').find(b=>b.dataset.t==='ac')?.click();toast('Please set your own password now.')}}
   place();
 }
-$('#loginForm').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});if(error)toast('Login failed. Check your email and password.');else{$('#pw').value='';toast('Welcome back');scrollTo(0,0)}};
+const lm=$('#loginModal');
+$('#loginBtn').onclick=()=>{lm.classList.add('open');setTimeout(()=>$('#em').focus(),60)};
+lm.onclick=e=>{if(e.target===lm||e.target.closest('[data-close]'))lm.classList.remove('open')};
+addEventListener('keydown',e=>{if(e.key==='Escape')lm.classList.remove('open')});
+$('#loginForm').onsubmit=async e=>{e.preventDefault();const b=$('#goBtn'),sp=b.querySelector('span'),m=$('#lmMsg');m.style.color='';m.textContent='';b.disabled=true;sp.textContent='Signing in...';
+ const {error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
+ b.disabled=false;sp.textContent='Enter';
+ if(error){m.textContent='Wrong email or password.';return}
+ $('#pw').value='';lm.classList.remove('open');toast('Welcome back');scrollTo(0,0)};
+$('#forgot').onclick=async()=>{const em=$('#em').value.trim(),m=$('#lmMsg');if(!em){m.textContent='Type your email first.';return}
+ const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});m.style.color=error?'':'var(--ok)';m.textContent=error?'Could not send the email.':'If this is the admin email, a reset link was sent.'};
 $('#eye').onclick=()=>{const p=$('#pw');p.type=p.type==='password'?'text':'password';$('#eye').textContent=p.type==='password'?'Show':'Hide'};
 $('#outBtn').onclick=()=>sb.auth.signOut();
 $('#chgPw').onclick=async()=>{const a=$('#np').value;if(a.length<10)return toast('Use at least 10 characters.');if(a!==$('#np2').value)return toast('Passwords do not match.');const {error}=await sb.auth.updateUser({password:a,data:{must_change:false}});toast(error?'Could not change password.':'Password updated');if(!error){$('#np').value=$('#np2').value=''}};
