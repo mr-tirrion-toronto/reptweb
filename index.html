@@ -30,7 +30,7 @@ header{position:fixed;top:14px;left:0;right:0;z-index:50;display:flex;justify-co
 nav{position:relative;display:flex;background:#0e0a1fcc;backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:5px}
 nav a{position:relative;z-index:1;padding:8px 18px;border-radius:999px;text-decoration:none;font-weight:500;font-size:14px;color:var(--mute);transition:color .3s}
 nav a.on,nav a:hover{color:#fff}
-#blob{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:linear-gradient(120deg,var(--p),var(--b));box-shadow:0 0 24px #8b5cf688;transition:left .55s cubic-bezier(.3,1.6,.5,1),width .55s cubic-bezier(.3,1.6,.5,1)}
+#blob,#ablob{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:linear-gradient(120deg,var(--p),var(--b));box-shadow:0 0 24px #8b5cf688;transition:left .55s cubic-bezier(.3,1.6,.5,1),width .55s cubic-bezier(.3,1.6,.5,1)}
 /* login pill */
 #loginPill{position:relative;display:flex;align-items:center;height:46px;width:104px;overflow:hidden;border-radius:999px;border:1px solid var(--line);background:#0e0a1fee;backdrop-filter:blur(14px);transition:width .6s cubic-bezier(.3,1.3,.4,1),height .6s,border-radius .5s}
 #loginPill .lbl{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;letter-spacing:.12em;font-size:13px;transition:opacity .25s}
@@ -118,6 +118,25 @@ body.has-bot{padding-bottom:var(--adbot,60px)}body.has-bot #toast{bottom:calc(va
 #lmMsg{color:var(--bad);font-size:13px;min-height:20px;margin:8px 0}
 .lx{position:absolute;right:14px;top:12px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#05030d;color:var(--ink);cursor:pointer}
 footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:underline}
+#blob,#ablob{}
+.tabs{display:none}
+#anav{display:none;overflow-x:auto;max-width:94vw}body.admin #anav{display:flex}body.admin #nav{display:none}
+body.admin.preview #nav{display:flex}body.admin.preview #anav{display:none}
+body.admin.preview #pub{display:block}body.admin.preview #adm{display:none}
+#backAdm{display:none;position:fixed;right:18px;bottom:18px;z-index:70}body.admin.preview #backAdm{display:inline-block}
+nav a{white-space:nowrap}nav a:hover{transform:translateY(-2px)}
+nav a.on:after{content:"";position:absolute;bottom:2px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#fff;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.9);opacity:.4}}
+#blob.go,#ablob.go{animation:goo .6s}@keyframes goo{40%{transform:scale(1.18,.62)}}
+header{animation:drop .9s cubic-bezier(.2,1.4,.4,1) both}@keyframes drop{from{transform:translateY(-90px);opacity:0}}
+.hero h1{background-size:220% auto;animation:shine 6s ease-in-out infinite alternate}@keyframes shine{to{background-position:100% 0}}
+.hero .wrap>div:first-child>*{animation:rise .9s cubic-bezier(.2,1,.3,1) both}.hero .wrap>div:first-child>*:nth-child(2){animation-delay:.12s}.hero .wrap>div:first-child>*:nth-child(3){animation-delay:.24s}.hero .wrap>div:first-child>*:nth-child(4){animation-delay:.36s}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}}
+.rv{opacity:0;transform:translateY(34px)}.rv.in{opacity:1;transform:none}
+.card.rv,.rv{transition:opacity .7s,transform .8s cubic-bezier(.2,1,.3,1)}
+#fx{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.dp{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid var(--p);flex:none;display:none}
+.soc .lq{padding:12px 24px}
 </style>
 </head>
 <body>
@@ -129,7 +148,8 @@ footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:unde
 <aside class="sticky top" id="stTop" aria-label="Sponsored"><div class="adbox"></div><button class="x" aria-label="Close ad">&times;</button></aside>
 <header>
   <a class="brand" href="#top" aria-label="Mr Tirrion Toronto — home"><i class="lg" role="img" aria-label="MT eagle logo"></i><span><b>MT</b><small id="brandName">Tirrion Toronto</small></span></a>
-  <nav id="nav" aria-label="Main"><i id="blob"></i><a href="#top" class="on">Home</a><a href="#work">Work</a><a href="#about">About</a></nav>
+  <nav id="nav" aria-label="Main"><i id="blob"></i><a href="#top" class="on">Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <nav id="anav" aria-label="Admin"><i id="ablob"></i><a href="#" data-t="up" class="on">Add work</a><a href="#" data-t="ml">Manage</a><a href="#" data-t="pr">Profile</a><a href="#" data-t="ad">Ads</a><a href="#" data-t="ac">Account</a><a href="#" id="viewSite">View site</a></nav>
   <button class="lq sm" id="loginBtn" type="button"><span>LOGIN</span></button>
   <button class="lq sm" id="outBtn" style="display:none"><span>Log out</span></button>
 </header>
@@ -142,14 +162,15 @@ footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:unde
   <div class="adslot" data-pl="banner_top" aria-label="Sponsored"></div>
   <section id="work"><div class="wrap"><h2>My work</h2><p class="sub">Apps, websites, documents, media and downloads.</p><div class="chips" id="chips"></div><div class="grid" id="grid"></div></div></section>
   <div class="adslot" data-pl="banner_mid" aria-label="Sponsored"></div>
-  <section id="about"><div class="wrap"><h2>About me</h2><p class="about" id="aboutTxt"></p><div class="soc" id="soc"></div></div></section>
+  <section id="about"><div class="wrap"><h2>About me</h2><p class="about" id="aboutTxt"></p></div></section>
+  <section id="contact"><div class="wrap"><h2>Let's work together</h2><p class="sub">Open to internships, junior security and IT roles, and freelance projects. Reach me directly:</p><div class="soc" id="soc"></div></div></section>
   <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></div></footer>
 </main>
 
 <main id="adm"><div class="wrap">
   <div class="tabs"><button class="lq sm" data-t="up"><span>Add work</span></button><button class="lq sm ghost" data-t="ml"><span>Manage</span></button><button class="lq sm ghost" data-t="pr"><span>Profile &amp; About</span></button><button class="lq sm ghost" data-t="ad"><span>Ads</span></button><button class="lq sm ghost" data-t="ac"><span>Account</span></button></div>
 
-  <div class="panel" data-p="up"><h2 style="font-size:26px">Add work</h2>
+  <div class="panel" data-p="up"><h2 style="font-size:26px" id="addHead">Add work</h2>
     <label>Type</label><select id="fKind"><option value="document">Document</option><option value="image">Picture</option><option value="video">Video</option><option value="audio">Audio</option><option value="archive">Zip / archive</option><option value="app">App (file or link)</option><option value="website">Website link</option><option value="other">Other</option></select>
     <label>Title</label><input type="text" id="fTitle" maxlength="160">
     <label>Description</label><textarea id="fDesc" maxlength="4000"></textarea>
@@ -157,13 +178,13 @@ footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:unde
     <label>File (any type, up to 50 MB)</label><div class="drop" id="drop">Drop a file here or click to choose<input type="file" id="fFile" hidden></div><p class="meta" id="fName"></p>
     <label>Cover image (optional)</label><input type="file" id="fCover" accept="image/*">
     <label><input type="checkbox" id="fPub" checked> Publish now</label><label><input type="checkbox" id="fFeat"> Feature first</label>
-    <div class="bar" id="bar"><i></i></div><br><button class="lq" id="saveWork"><span>Save work</span></button></div>
+    <div class="bar" id="bar"><i></i></div><br><button class="lq" id="saveWork"><span>Save work</span></button> <button class="lq ghost" id="cancelEdit" type="button" style="display:none"><span>Cancel edit</span></button></div>
 
   <div class="panel" data-p="ml" hidden><h2 style="font-size:26px">Manage</h2><div id="mlist"></div></div>
 
   <div class="panel" data-p="pr" hidden><h2 style="font-size:26px">Profile &amp; About</h2>
     <label>Display name</label><input type="text" id="sName"><label>Tagline</label><input type="text" id="sTag"><label>About me</label><textarea id="sAbout" style="min-height:160px"></textarea>
-    <label>Profile picture</label><input type="file" id="sAvatar" accept="image/*">
+    <label>Profile picture (DP)</label><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><img id="dpPrev" class="dp" alt="Current profile picture"><div><input type="file" id="sAvatar" accept="image/*"><button type="button" class="lq sm red" id="dpDel" style="margin-top:8px"><span>Remove picture</span></button></div></div>
     <label>Social links (one per line: Name | https://link)</label><textarea id="sSoc" placeholder="GitHub | https://github.com/you"></textarea><br><button class="lq" id="saveSet"><span>Save profile</span></button></div>
 
   <div class="panel" data-p="ad" hidden><h2 style="font-size:26px">Ads &amp; earnings</h2>
@@ -181,12 +202,13 @@ footer a{color:var(--b);text-decoration:none}footer a:hover{text-decoration:unde
     <label>Image (banner or card)</label><input type="file" id="aImg" accept="image/*"><br><button class="lq" id="saveAd"><span>Add ad</span></button>
     <h3 style="margin-top:26px">Your ads</h3><div id="alist"></div></div>
 
-  <div class="panel" data-p="ac" hidden><h2 style="font-size:26px">Change password</h2>
+  <div class="panel" data-p="ac" hidden><h2 style="font-size:26px">Account</h2><label>Admin username (shown to you in the dashboard)</label><input type="text" id="accUser" maxlength="40"><label>Login email (a confirmation link is sent to the new address)</label><input type="email" id="accEmail"><br><button class="lq" id="saveAcc"><span>Save account</span></button><h3 style="margin-top:28px">Change password</h3>
     <label>New password (min 10 characters)</label><input type="password" id="np" autocomplete="new-password"><label>Repeat password</label><input type="password" id="np2" autocomplete="new-password"><br><button class="lq" id="chgPw"><span>Update password</span></button></div>
 </div></main>
 
 <aside class="sticky bot" id="stBot" aria-label="Sponsored"><div class="adbox"></div><button class="x" aria-label="Close ad">&times;</button></aside>
 <div class="panel setup" id="setup"><h2 style="font-size:24px">Backend not reachable</h2><p class="sub">The Supabase library could not load. Check your internet connection and reload.</p></div>
+<button class="lq" id="backAdm" type="button"><span>Back to admin</span></button>
 <div id="loginModal" role="dialog" aria-modal="true" aria-label="Admin login"><div class="lbox"><button class="lx" data-close type="button" aria-label="Close">&times;</button><i class="lg"></i><h2 style="text-align:center;font-size:26px">Admin login</h2>
 <form id="loginForm" autocomplete="on"><label for="em">Email</label><input id="em" type="email" required autocomplete="username"><label for="pw">Password</label><div class="pwrow"><input id="pw" type="password" required autocomplete="current-password"><button type="button" class="eye" id="eye">Show</button></div><div id="lmMsg" role="alert"></div><button class="lq" id="goBtn" type="submit" style="width:100%"><span>Enter</span></button><p style="text-align:center;margin-top:12px"><button type="button" class="eye" id="forgot">Forgot password?</button></p></form></div></div>
 <div id="toast" role="status"></div>
@@ -198,7 +220,7 @@ const SB_KEY='sb_publishable_u4CIhnsKdHM_XmFDwfaV6A_dSeFwded'; // public key; da
 const BUCKET='portfolio-media';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const safeUrl=u=>/^https?:\/\//i.test(u||'')?u:'#';
+const safeUrl=u=>/^(https?:\/\/|mailto:)/i.test(u||'')?u:'#';
 const KINDS={document:'Document',image:'Picture',video:'Video',audio:'Audio',archive:'Archive',app:'App',website:'Website',other:'File'};
 const ICON={document:'DOC',archive:'ZIP',app:'APP',website:'WEB',other:'FILE'};
 let sb,works=[],settings=null,filter='all',isAdmin=false,ads=[],adsLoaded=false;
@@ -219,7 +241,7 @@ async function loadSettings(){
   const n=settings.owner_name||'Mr Tirrion Toronto';$('#hName').textContent=n;$('#hTag').textContent=settings.tagline||'';
   $('#aboutTxt').textContent=settings.about||'The About section is empty. The owner can write it from the dashboard.';
   const av=$('#avatar');if(settings.avatar_path){av.src=pubUrl(settings.avatar_path);av.style.display='block'}else av.style.display='none';
-  const soc=$('#soc');soc.innerHTML='';(settings.socials||[]).forEach(s=>{const a=document.createElement('a');a.className='lq sm ghost';a.href=safeUrl(s.url);a.target='_blank';a.rel='noopener noreferrer';a.innerHTML='<span>'+esc(s.name)+'</span>';soc.append(a)});
+  const soc=$('#soc');soc.innerHTML='';(settings.socials||[]).forEach(s=>{const a=document.createElement('a');a.className='lq';a.href=safeUrl(s.url);a.target='_blank';a.rel='noopener noreferrer';a.innerHTML='<span>'+esc(s.name)+'</span>';soc.append(a)});
 }
 async function loadWorks(){
   const {data,error}=await sb.from('pf_works').select('*').order('featured',{ascending:false}).order('created_at',{ascending:false});
@@ -247,15 +269,16 @@ function renderGrid(){
   const cards=list.map(card),nat=nativeAds();
   nat.forEach((a,i)=>{const at=Math.min(cards.length,3+i*4);cards.splice(at,0,nativeCard(a))});
   $('#grid').innerHTML=list.length?cards.join(''):'<div class="empty">Nothing published yet. Check back soon.</div>';
-  mountAdsense($('#grid'));
+  mountAdsense($('#grid'));reveal();
   $$('.card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-6px)`};c.onmouseleave=()=>c.style.transform=''});
 }
 function renderManage(){
   if(!isAdmin)return;
-  $('#mlist').innerHTML=works.length?works.map(w=>`<div class="item"><div><b>${esc(w.title)}</b><br><small>${KINDS[w.kind]} · ${w.published?'Published':'Hidden'}${w.featured?' · Featured':''}</small></div><div class="acts"><button class="lq sm ghost" data-a="pub" data-id="${w.id}"><span>${w.published?'Hide':'Publish'}</span></button><button class="lq sm ghost" data-a="feat" data-id="${w.id}"><span>${w.featured?'Unfeature':'Feature'}</span></button><button class="lq sm red" data-a="del" data-id="${w.id}"><span>Delete</span></button></div></div>`).join(''):'<div class="empty">No works yet. Add your first one from the Add work tab.</div>';
+  $('#mlist').innerHTML=works.length?works.map(w=>`<div class="item"><div><b>${esc(w.title)}</b><br><small>${KINDS[w.kind]} · ${w.published?'Published':'Hidden'}${w.featured?' · Featured':''}</small></div><div class="acts"><button class="lq sm" data-a="edit" data-id="${w.id}"><span>Edit</span></button><button class="lq sm ghost" data-a="pub" data-id="${w.id}"><span>${w.published?'Hide':'Publish'}</span></button><button class="lq sm ghost" data-a="feat" data-id="${w.id}"><span>${w.featured?'Unfeature':'Feature'}</span></button><button class="lq sm red" data-a="del" data-id="${w.id}"><span>Delete</span></button></div></div>`).join(''):'<div class="empty">No works yet. Add your first one from the Add work tab.</div>';
 }
 $('#mlist').onclick=async e=>{
   const b=e.target.closest('button');if(!b)return;const w=works.find(x=>x.id===b.dataset.id);if(!w)return;
+  if(b.dataset.a==='edit'){startEdit(w);return}
   if(b.dataset.a==='pub')await sb.from('pf_works').update({published:!w.published}).eq('id',w.id);
   if(b.dataset.a==='feat')await sb.from('pf_works').update({featured:!w.featured}).eq('id',w.id);
   if(b.dataset.a==='del'){if(!confirm('Delete "'+w.title+'" permanently?'))return;const paths=[w.file_path,w.cover_path].filter(Boolean);if(paths.length)await sb.storage.from(BUCKET).remove(paths);await sb.from('pf_works').delete().eq('id',w.id);toast('Deleted')}
@@ -265,9 +288,9 @@ $('#mlist').onclick=async e=>{
 async function applyAuth(session){
   let ok=false;
   if(session){const {data}=await sb.from('pf_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();ok=!!data}
-  isAdmin=ok;document.body.classList.toggle('admin',ok);renderAds();renderGrid();$('#outBtn').style.display=ok?'':'none';
+  isAdmin=ok;me=session&&session.user;document.body.classList.toggle('admin',ok);renderAds();renderGrid();$('#outBtn').style.display=ok?'':'none';
   if(session&&!ok){toast('This account is not the site admin.');await sb.auth.signOut()}
-  if(ok){fillSettingsForm();await loadWorks();if(session.user.user_metadata?.must_change){$$('.tabs button').find(b=>b.dataset.t==='ac')?.click();toast('Please set your own password now.')}}
+  if(ok){fillSettingsForm();await loadWorks();if(session.user.user_metadata?.must_change){showTab('ac');toast('Please set your own password now.')}}
   place();
 }
 const lm=$('#loginModal');
@@ -298,26 +321,29 @@ async function upload(file,folder){
 }
 $('#saveWork').onclick=async()=>{
   const title=$('#fTitle').value.trim(),f=$('#fFile').files[0],c=$('#fCover').files[0],url=$('#fUrl').value.trim();
-  if(!title)return toast('Add a title.');if(!f&&!url)return toast('Add a file or a link.');
+  if(!title)return toast('Add a title.');if(!editId&&!f&&!url)return toast('Add a file or a link.');
   if(f&&f.size>52428800)return toast('File is over 50 MB.');
   const bar=$('#bar'),fill=bar.firstElementChild;bar.style.display='block';fill.style.width='15%';
   try{
-    const file_path=f?await upload(f,'files'):null;fill.style.width='60%';
-    const cover_path=c?await upload(c,'covers'):null;fill.style.width='85%';
-    const {error}=await sb.from('pf_works').insert({title,description:$('#fDesc').value.trim(),kind:$('#fKind').value,url:url||null,file_path,file_name:f?.name||null,file_size:f?.size||null,mime:f?.type||null,cover_path,tags:$('#fTags').value.split(',').map(t=>t.trim()).filter(Boolean).slice(0,12),featured:$('#fFeat').checked,published:$('#fPub').checked});
-    if(error)throw error;fill.style.width='100%';toast('Saved');
-    ['#fTitle','#fDesc','#fUrl','#fTags'].forEach(s=>$(s).value='');$('#fFile').value=$('#fCover').value='';$('#fName').textContent='';await loadWorks();
-  }catch(e){toast('Upload failed. Try again.')}
+    const row={title,description:$('#fDesc').value.trim(),kind:$('#fKind').value,url:url||null,tags:$('#fTags').value.split(',').map(t=>t.trim()).filter(Boolean).slice(0,12),featured:$('#fFeat').checked,published:$('#fPub').checked};
+    if(f){row.file_path=await upload(f,'files');row.file_name=f.name;row.file_size=f.size;row.mime=f.type||null}fill.style.width='60%';
+    if(c)row.cover_path=await upload(c,'covers');fill.style.width='85%';
+    let error;
+    if(editId){const old=works.find(x=>x.id===editId);({error}=await sb.from('pf_works').update(row).eq('id',editId));
+      if(!error){const rm=[];if(f&&old?.file_path)rm.push(old.file_path);if(c&&old?.cover_path)rm.push(old.cover_path);if(rm.length)await sb.storage.from(BUCKET).remove(rm)}}
+    else({error}=await sb.from('pf_works').insert(row));
+    if(error)throw error;fill.style.width='100%';toast(editId?'Work updated':'Saved');endEdit();await loadWorks();
+  }catch(e){toast('Could not save. Check the fields and try again.')}
   setTimeout(()=>{bar.style.display='none';fill.style.width='0'},600);
 };
-function fillSettingsForm(){$('#aClient').value=settings.ad_client||'';$('#aOn').checked=!!settings.ads_enabled;$('#sName').value=settings.owner_name||'';$('#sTag').value=settings.tagline||'';$('#sAbout').value=settings.about||'';$('#sSoc').value=(settings.socials||[]).map(s=>s.name+' | '+s.url).join('\n')}
+function fillSettingsForm(){fillExtra();$('#aClient').value=settings.ad_client||'';$('#aOn').checked=!!settings.ads_enabled;$('#sName').value=settings.owner_name||'';$('#sTag').value=settings.tagline||'';$('#sAbout').value=settings.about||'';$('#sSoc').value=(settings.socials||[]).map(s=>s.name+' | '+s.url).join('\n')}
 $('#saveSet').onclick=async()=>{
   try{
-    const socials=$('#sSoc').value.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(p=>p[0]&&/^https?:\/\//i.test(p[1]||'')).map(p=>({name:p[0],url:p[1]}));
+    const socials=$('#sSoc').value.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(p=>p[0]&&/^(https?:\/\/|mailto:)/i.test(p[1]||'')).map(p=>({name:p[0],url:p[1]}));
     const patch={owner_name:$('#sName').value.trim()||'Mr Tirrion Toronto',tagline:$('#sTag').value.trim(),about:$('#sAbout').value,socials,updated_at:new Date().toISOString()};
     const a=$('#sAvatar').files[0];if(a)patch.avatar_path=await upload(a,'profile');
     const {error}=await sb.from('pf_settings').update(patch).eq('id',1);if(error)throw error;
-    toast('Profile saved');await loadSettings();
+    toast('Profile saved');await loadSettings();fillExtra();
   }catch(e){toast('Could not save profile.')}
 };
 
@@ -377,12 +403,36 @@ $('#saveAd').onclick=async()=>{
     const {error}=await sb.from('pf_ads').insert({placement:pl,type,ad_slot:type==='adsense'?slot:null,layout_key:$('#aLay').value.trim()||null,image_path,link_url:link||null,title:$('#aTitle').value.trim()||null,body:$('#aBody').value.trim()||null,cta:$('#aCta').value.trim()||null,sponsor:$('#aSp').value.trim()||null});
     if(error)throw error;toast('Ad added');['#aSlot','#aLay','#aSp','#aLink','#aTitle','#aCta','#aBody'].forEach(x=>$(x).value='');$('#aImg').value='';await loadAds();renderAdList();
   }catch(e){toast('Could not add ad. Check the fields.')}};
+let me=null,editId=null;
+function squash(el){el.classList.remove('go');void el.offsetWidth;el.classList.add('go')}
+const an=$('#anav'),ab=$('#ablob');
+function aplace(){const on=an.querySelector('a.on');if(on){ab.style.left=on.offsetLeft+'px';ab.style.width=on.offsetWidth+'px'}}
+function showTab(t){$$('[data-p]').forEach(p=>p.hidden=p.dataset.p!==t);an.querySelectorAll('a[data-t]').forEach(a=>a.classList.toggle('on',a.dataset.t===t));if(t==='ad')renderAdList();squash(ab);aplace()}
+an.querySelectorAll('a').forEach(a=>{a.onmouseenter=()=>{squash(ab);ab.style.left=a.offsetLeft+'px';ab.style.width=a.offsetWidth+'px'}});an.onmouseleave=aplace;
+an.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();if(a.id==='viewSite'){document.body.classList.add('preview');scrollTo(0,0);return}document.body.classList.remove('preview');showTab(a.dataset.t)};
+$('#backAdm').onclick=()=>{document.body.classList.remove('preview');setTimeout(aplace,60)};
+new MutationObserver(()=>setTimeout(aplace,80)).observe(document.body,{attributes:true,attributeFilter:['class']});addEventListener('resize',aplace);
+function startEdit(w){editId=w.id;$('#fKind').value=w.kind;$('#fTitle').value=w.title;$('#fDesc').value=w.description||'';$('#fUrl').value=w.url||'';$('#fTags').value=(w.tags||[]).join(', ');$('#fPub').checked=!!w.published;$('#fFeat').checked=!!w.featured;$('#fFile').value=$('#fCover').value='';$('#fName').textContent=w.file_name?'Current file: '+w.file_name+' (choose a new file only to replace it)':'';$('#saveWork span').textContent='Update work';$('#cancelEdit').style.display='';$('#addHead').textContent='Edit work';showTab('up');scrollTo(0,0)}
+function endEdit(){editId=null;['#fTitle','#fDesc','#fUrl','#fTags'].forEach(s=>$(s).value='');$('#fFile').value=$('#fCover').value='';$('#fName').textContent='';$('#fPub').checked=true;$('#fFeat').checked=false;$('#saveWork span').textContent='Save work';$('#cancelEdit').style.display='none';$('#addHead').textContent='Add work'}
+$('#cancelEdit').onclick=endEdit;
+function fillExtra(){$('#accUser').value=settings.admin_username||'';$('#accEmail').value=(me&&me.email)||'';const d=$('#dpPrev');if(settings.avatar_path){d.src=pubUrl(settings.avatar_path);d.style.display='block'}else d.style.display='none'}
+$('#dpDel').onclick=async()=>{if(!settings.avatar_path)return toast('No picture to remove.');await sb.storage.from(BUCKET).remove([settings.avatar_path]);const {error}=await sb.from('pf_settings').update({avatar_path:null}).eq('id',1);toast(error?'Could not remove.':'Picture removed');await loadSettings();fillExtra()};
+$('#saveAcc').onclick=async()=>{const u=$('#accUser').value.trim().slice(0,40),em=$('#accEmail').value.trim();
+  const {error}=await sb.from('pf_settings').update({admin_username:u||null}).eq('id',1);let m=error?'Could not save username.':'Account saved';
+  if(!error&&em&&me&&em!==me.email){const r=await sb.auth.updateUser({email:em});m=r.error?'Could not change email.':'Check the new inbox to confirm the email change.'}
+  toast(m);await loadSettings();fillExtra()};
+const rio='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add('in');rio.unobserve(t);setTimeout(()=>t.classList.remove('rv','in'),1100)}}),{threshold:.1}):null;
+function reveal(){$$('.card,section h2,section .sub,.about,.soc a,.chips').forEach((el,i)=>{if(el.dataset.rv)return;el.dataset.rv=1;el.style.transitionDelay=(i%6*70)+'ms';el.classList.add('rv');rio?rio.observe(el):el.classList.add('in')})}
+reveal();
+(()=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const c=document.createElement('canvas');c.id='fx';document.body.prepend(c);const x=c.getContext('2d');let W,H,P=[];
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight;P=Array.from({length:Math.min(55,Math.floor(W/24))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.25,vy:-Math.random()*.35-.08,h:Math.random()<.5?265:200}))}
+rs();addEventListener('resize',rs);(function f(){x.clearRect(0,0,W,H);for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}x.beginPath();x.fillStyle='hsla('+p.h+',90%,70%,.55)';x.shadowBlur=10;x.shadowColor='hsl('+p.h+',90%,65%)';x.arc(p.x,p.y,p.r,0,7);x.fill()}requestAnimationFrame(f)})()})();
 /* liquid nav blob + scroll spy */
 function place(){const on=$('#nav a.on');if(!on)return;const b=$('#blob');b.style.left=on.offsetLeft+'px';b.style.width=on.offsetWidth+'px'}
-$$('#nav a').forEach(a=>{a.onmouseenter=()=>{const b=$('#blob');b.style.left=a.offsetLeft+'px';b.style.width=a.offsetWidth+'px'};a.onclick=()=>{$$('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on')}});
+$$('#nav a').forEach(a=>{a.onmouseenter=()=>{const b=$('#blob');squash(b);b.style.left=a.offsetLeft+'px';b.style.width=a.offsetWidth+'px'};a.onclick=()=>{$$('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on')}});
 $('#nav').onmouseleave=place;addEventListener('resize',place);
 const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const a=$(`#nav a[href="#${e.target.id}"]`);if(a){$$('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on');place()}}}),{threshold:.45});
-['top','work','about'].forEach(id=>spy.observe($('#'+id)));
+['top','work','about','contact'].forEach(id=>spy.observe($('#'+id)));
 document.fonts?.ready.then(place);setTimeout(place,200);
 $$('.lq').forEach(b=>b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--x',(e.clientX-r.left)+'px');b.style.setProperty('--y',(e.clientY-r.top)+'px')}));
 </script>
