@@ -423,7 +423,7 @@ function adHtml(a,fmt){
   const link=u=>`href="${esc(safeUrl(u))}" target="_blank" rel="sponsored nofollow noopener noreferrer"`;
   if(a.type==='image'&&a.image_path&&a.link_url)return `${lbl}<a ${link(a.link_url)}><img loading="lazy" alt="${esc(a.sponsor||'Sponsored')}" src="${esc(pubUrl(a.image_path))}"></a>`;
   if(a.type==='adsense'&&settings.ad_client&&a.ad_slot){
-    const fluid=a.layout_key?` data-ad-format="fluid" data-ad-layout-key="${esc(a.layout_key)}"`:` data-ad-format="auto" data-full-width-responsive="true"`;
+    const fluid=a.layout_key==='in-article'?' data-ad-layout="in-article" data-ad-format="fluid"':a.layout_key?` data-ad-format="fluid" data-ad-layout-key="${esc(a.layout_key)}"`:` data-ad-format="auto" data-full-width-responsive="true"`;
     return `${lbl}<ins class="adsbygoogle" style="display:block" data-ad-client="${esc(settings.ad_client)}" data-ad-slot="${esc(a.ad_slot)}"${fluid}></ins>`;
   }
   return '';
@@ -435,7 +435,7 @@ function nativeCard(a){
   return `<article class="card native">${img}<div class="bd"><span class="kind">Sponsored${a.sponsor?' · '+esc(a.sponsor):''}</span><h3>${esc(a.title||a.sponsor||'Sponsored')}</h3><p>${esc(a.body)}</p><div class="acts"><a class="lq sm" href="${esc(safeUrl(a.link_url))}" target="_blank" rel="sponsored nofollow noopener noreferrer"><span>${esc(a.cta||'Learn more')}</span></a></div></div></article>`;
 }
 let adsenseLoaded=false;
-function ensureAdsense(){if(adsenseLoaded||!settings.ad_client)return;adsenseLoaded=true;const s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+encodeURIComponent(settings.ad_client);document.head.append(s)}
+function ensureAdsense(){if(adsenseLoaded||!settings.ad_client)return;if(document.querySelector('script[src*="adsbygoogle.js"]')){adsenseLoaded=true;return}adsenseLoaded=true;const s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+encodeURIComponent(settings.ad_client);document.head.append(s)}
 function mountAdsense(root){root.querySelectorAll('ins.adsbygoogle:not([data-done])').forEach(i=>{i.dataset.done=1;ensureAdsense();try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}})}
 const dismissed=new Set();
 function renderAds(){
