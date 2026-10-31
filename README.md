@@ -1,8 +1,8 @@
-# Mr Tirrion Toronto — Portfolio (reptweb)
+# Mr Tirrion Toronto — Portfolio
 
-Static portfolio site (single `index.html`) backed by Supabase (Postgres, Auth, Storage, RLS). Hosted on Cloudflare Pages: https://reptweb.pages.dev
+Static site (single `index.html`) on Cloudflare Pages: https://tirrion.pages.dev
 
-- Public link: `https://reptweb.pages.dev/`
-- Admin link (shows LOGIN on your device): `https://reptweb.pages.dev/?admin`
-- The key in `index.html` is a Supabase publishable key; data is protected by Row Level Security.
-- `ads.txt` authorises Google AdSense for this site.
+- Public: `https://tirrion.pages.dev/`
+- Admin: `https://tirrion.pages.dev/?admin`
+- Backend: Supabase (RLS). Push notifications: `sw.js` + Supabase Edge Function `pf-push`.
+- `ads.txt` authorises Google AdSense.

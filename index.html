@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mr Tirrion Toronto — Portfolio</title>
 <meta name="description" content="Portfolio of Mr Tirrion Toronto: apps, websites, documents, media and more.">
-<meta property="og:title" content="Mr Tirrion Toronto — Cybersecurity &amp; IT Portfolio"><meta property="og:description" content="Cybersecurity student, IT problem solver and builder of security tools in Arusha, Tanzania."><meta property="og:type" content="website"><meta property="og:url" content="https://reptweb.pages.dev/"><meta property="og:image" content="https://reptweb.pages.dev/logo-share.jpg"><meta property="og:image:width" content="600"><meta property="og:image:height" content="600"><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Mr Tirrion Toronto — Cybersecurity &amp; IT Portfolio"><meta property="og:description" content="Cybersecurity student, IT problem solver and builder of security tools in Arusha, Tanzania."><meta property="og:type" content="website"><meta property="og:url" content="https://tirrion.pages.dev/"><meta property="og:image" content="https://tirrion.pages.dev/logo-share.jpg"><meta property="og:image:width" content="600"><meta property="og:image:height" content="600"><meta name="twitter:card" content="summary">
 <script>try{var q=location.search;if(/[?&]public\b/.test(q))localStorage.removeItem('pf_ui');else{if(/[?&]admin\b/.test(q)||location.hash==='#admin')localStorage.setItem('pf_ui','1');if(localStorage.getItem('pf_ui'))document.documentElement.classList.add('show-login')}}catch(e){}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Tirrion Toronto","jobTitle":"Cybersecurity student and IT problem solver","address":{"@type":"PostalAddress","addressLocality":"Arusha","addressCountry":"TZ"},"sameAs":["https://github.com/mr-tirrion-toronto"]}</script>
 <link rel="icon" type="image/png" href="favicon.png">
@@ -193,6 +193,7 @@ body.admin #chatFab,body.admin #chatBox{display:none!important}
 .bdg{background:#fb7185;border-radius:10px;font-style:normal;font-size:10px;padding:0 6px;margin-left:4px}
 body.has-bot #chatFab{bottom:calc(var(--adbot,60px) + 22px)}body.has-bot #chatBox{bottom:calc(var(--adbot,60px) + 96px)}
 @media(max-width:820px){#chatFab{bottom:92px;right:14px;width:56px;height:56px}#chatBox{bottom:160px;right:10px;left:10px;width:auto;height:min(68vh,520px)}body.has-bot #chatFab{bottom:calc(var(--adbot,60px) + 92px)}body.has-bot #chatBox{bottom:calc(var(--adbot,60px) + 160px)}.chat-admin{grid-template-columns:1fr}.hand{display:none}}
+.ch-h .bell{margin-left:auto;font-size:15px}.ch-h .bell.on{background:#34d39966}.ch-h button[data-x]{margin-left:6px}
 </style>
 </head>
 <body>
@@ -239,7 +240,7 @@ body.has-bot #chatFab{bottom:calc(var(--adbot,60px) + 22px)}body.has-bot #chatBo
 
   <div class="panel" data-p="ml" hidden><h2 style="font-size:26px">Manage</h2><div id="mlist"></div></div>
 
-  <div class="panel" data-p="ch" hidden><h2 style="font-size:26px">Chats</h2><div class="chat-admin"><div id="chList"></div><div id="chThread"><div id="chAMsgs"></div><form id="chAForm" hidden><input type="text" id="chAIn" maxlength="1000" placeholder="Write a reply..."><button class="lq sm" type="submit"><span>Reply</span></button></form></div></div></div>
+  <div class="panel" data-p="ch" hidden><h2 style="font-size:26px">Chats</h2><button class="lq sm" id="admPush" type="button"><span>🔔 Enable notifications on this device</span></button><div class="chat-admin" style="margin-top:14px"><div id="chList"></div><div id="chThread"><div id="chAMsgs"></div><form id="chAForm" hidden><input type="text" id="chAIn" maxlength="1000" placeholder="Write a reply..."><button class="lq sm" type="submit"><span>Reply</span></button></form></div></div></div>
   <div class="panel" data-p="cm" hidden><h2 style="font-size:26px">Comments</h2><p class="sub">New comments wait here until you approve them.</p><div id="cmList"></div></div>
   <div class="panel" data-p="pr" hidden><h2 style="font-size:26px">Profile &amp; About</h2>
     <label>Display name</label><input type="text" id="sName"><label>Tagline</label><input type="text" id="sTag"><label>About me</label><textarea id="sAbout" style="min-height:160px"></textarea>
@@ -270,7 +271,7 @@ body.has-bot #chatFab{bottom:calc(var(--adbot,60px) + 22px)}body.has-bot #chatBo
 <div class="panel setup" id="setup"><h2 style="font-size:24px">Backend not reachable</h2><p class="sub">The Supabase library could not load. Check your internet connection and reload.</p></div>
 <button class="lq" id="backAdm" type="button"><span>Back to admin</span></button>
 <button id="chatFab" type="button" aria-label="Chat with me"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.4A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg><b id="chatBadge" hidden></b></button>
-<div id="chatBox" role="dialog" aria-label="Chat"><div class="ch-h"><i class="lg"></i><div><b>Chat with me</b><small>I reply as soon as I can</small></div><button type="button" data-x aria-label="Close">&times;</button></div><div id="chMsgs"></div>
+<div id="chatBox" role="dialog" aria-label="Chat"><div class="ch-h"><i class="lg"></i><div><b>Chat with me</b><small>I reply as soon as I can</small></div><button type="button" class="bell" id="chBell" title="Notify me" aria-label="Notifications">🔔</button><button type="button" data-x aria-label="Close">&times;</button></div><div id="chMsgs"></div>
 <form id="chIntro" hidden><input id="chName" type="text" maxlength="60" placeholder="Your name" required><input id="chContact" type="text" maxlength="120" placeholder="WhatsApp or email (optional)"><button class="lq" type="submit"><span>Start chat</span></button></form>
 <form id="chForm" hidden><input id="chIn" type="text" maxlength="1000" placeholder="Write a message..." autocomplete="off"><button class="lq sm" type="submit"><span>Send</span></button></form></div>
 <div id="cmModal" role="dialog" aria-modal="true"><div class="lbox cmbox"><button class="lx" data-close type="button" aria-label="Close">&times;</button><h2 id="cmTitle" style="font-size:22px;margin-bottom:10px"></h2><div id="cmItems"></div><form id="cmForm"><label for="cmName">Your name</label><input id="cmName" type="text" maxlength="60" required><label for="cmRate">Rating</label><select id="cmRate"><option value="5">★★★★★ Excellent</option><option value="4">★★★★ Good</option><option value="3">★★★ OK</option><option value="2">★★ Weak</option><option value="1">★ Poor</option><option value="">No rating</option></select><label for="cmBody">Your comment</label><textarea id="cmBody" maxlength="600" required></textarea><br><button class="lq" id="cmGo" type="submit"><span>Send comment</span></button></form></div></div>
@@ -355,7 +356,7 @@ async function applyAuth(session){
   if(session){const {data}=await sb.from('pf_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();ok=!!data}
   isAdmin=ok;me=session&&session.user;document.body.classList.toggle('admin',ok);renderAds();renderGrid();$('#outBtn').style.display=ok?'':'none';
   if(session&&!ok){toast('This account is not the site admin.');await sb.auth.signOut()}
-  if(ok){fillSettingsForm();await loadWorks();if(session.user.user_metadata?.must_change){showTab('ac');toast('Please set your own password now.')}}
+  if(ok){fillSettingsForm();await loadWorks();if(location.hash==='#chats')showTab('ch');if(session.user.user_metadata?.must_change){showTab('ac');toast('Please set your own password now.')}}
   place();
 }
 const lm=$('#loginModal');
@@ -502,7 +503,7 @@ const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k
 const CHN={open:false,msgs:[],seen:+(ls.get('pf_seen')||0),n:-1};
 function vtok(){let t=ls.get('pf_vt')||CHN.tok;if(!t||t.length<32){t=crypto.randomUUID().replace(/-/g,'')+crypto.randomUUID().replace(/-/g,'');CHN.tok=t;ls.set('pf_vt',t)}return t}
 async function chFetch(){if(isAdmin||!sb)return;const {data,error}=await sb.rpc('pf_chat_fetch',{p_token:vtok()});if(error)return;CHN.msgs=data||[];const own=CHN.msgs.filter(m=>m.sender==='owner').length;
- if(CHN.open){CHN.seen=own;ls.set('pf_seen',own)}const nb=own-CHN.seen,bd=$('#chatBadge');bd.hidden=!(nb>0);bd.textContent=nb;if(CHN.open&&CHN.msgs.length!==CHN.n)chRender()}
+ if(CHN.open){CHN.seen=own;ls.set('pf_seen',own)}const nb=own-CHN.seen,bd=$('#chatBadge');bd.hidden=!(nb>0);bd.textContent=nb;setTitleCount(nb>0?nb:0);if(CHN.open&&CHN.msgs.length!==CHN.n)chRender()}
 function chRender(){CHN.n=CHN.msgs.length;const box=$('#chMsgs');box.innerHTML='';const add=(w,t)=>{const d=document.createElement('div');d.className='m '+w;d.textContent=t;box.append(d)};
  add('owner','Habari! 👋 Karibu. Niulize chochote kuhusu kazi zangu au huduma zangu. / Hi! Ask me anything about my work.');CHN.msgs.forEach(m=>add(m.sender,m.body));box.scrollTop=box.scrollHeight}
 $('#chatFab').onclick=()=>{CHN.open=!CHN.open;$('#chatBox').classList.toggle('open',CHN.open);if(CHN.open){const has=!!ls.get('pf_vn');$('#chIntro').hidden=has;$('#chForm').hidden=!has;chRender();chFetch();setTimeout(()=>(has?$('#chIn'):$('#chName')).focus(),150)}};
@@ -511,9 +512,9 @@ $('#chIntro').onsubmit=e=>{e.preventDefault();ls.set('pf_vn',$('#chName').value.
 $('#chForm').onsubmit=async e=>{e.preventDefault();const inp=$('#chIn'),t=inp.value.trim();if(!t)return;inp.value='';CHN.msgs.push({sender:'visitor',body:t});chRender();
  const {error}=await sb.rpc('pf_chat_send',{p_token:vtok(),p_name:ls.get('pf_vn')||null,p_contact:ls.get('pf_vc')||null,p_body:t});
  if(error){toast(/slow_down|busy/.test(error.message)?'Subiri kidogo, kisha jaribu tena.':'Ujumbe haukutumwa. Jaribu tena.');CHN.msgs.pop();chRender()}};
-(function loop(){if(sb&&!isAdmin&&!document.hidden&&(CHN.open||ls.get('pf_vt')))chFetch();setTimeout(loop,CHN.open?6000:30000)})();
+(function loop(){if(sb&&!isAdmin&&!document.hidden&&(CHN.open||ls.get('pf_vt')))chFetch();setTimeout(loop,CHN.open?5000:15000)})();
 let curChat=null;
-function setBadge(n){const b=$('#admBadge');b.hidden=!n;b.textContent=n}
+function setBadge(n){const b=$('#admBadge');b.hidden=!n;b.textContent=n;setTitleCount(n)}
 async function unreadCount(){const {count}=await sb.from('pf_messages').select('id',{count:'exact',head:true}).eq('sender','visitor').eq('read',false);setBadge(count||0)}
 async function loadChats(){const {data:cs}=await sb.from('pf_chats').select('*').order('last_at',{ascending:false}).limit(100);const {data:un}=await sb.from('pf_messages').select('chat_id').eq('sender','visitor').eq('read',false);const cnt={};(un||[]).forEach(u=>cnt[u.chat_id]=(cnt[u.chat_id]||0)+1);
  const L=$('#chList');L.innerHTML='';(cs||[]).forEach(c=>{const b=document.createElement('button');b.className='lq sm ghost chi'+(c.id===curChat?' on':'');b.dataset.id=c.id;b.innerHTML='<span></span>';b.firstChild.textContent=(c.name||'Visitor')+(c.contact?' · '+c.contact:'')+(cnt[c.id]?'  ('+cnt[c.id]+' new)':'');L.append(b)});
@@ -547,6 +548,23 @@ $('#cmList').onclick=async e=>{const b=e.target.closest('button');if(!b)return;i
 (()=>{const W=['secure systems.','build security tools.','fix networks & hardware.','design brands & labels.','love learning new skills.'],el=$('#tw');let i=0,j=0,del=false;(function t(){const w=W[i];el.textContent=w.slice(0,j);if(!del&&j===w.length){del=true;return setTimeout(t,1600)}if(del&&j===0){del=false;i=(i+1)%W.length}j+=del?-1:1;setTimeout(t,del?35:70)})()})();
 const hero=$('.hero');hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--mx',(e.clientX-r.left)+'px');hero.style.setProperty('--my',(e.clientY-r.top)+'px')});
 if('IntersectionObserver' in window){const dio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('drawn');dio.unobserve(e.target)}}),{threshold:.6});$$('section h2').forEach(h=>dio.observe(h))}else $$('section h2').forEach(h=>h.classList.add('drawn'));
+const BASE_T=document.title;
+function setTitleCount(n){document.title=(n>0?'('+n+') ':'')+BASE_T;try{n>0?(navigator.setAppBadge&&navigator.setAppBadge(n)):(navigator.clearAppBadge&&navigator.clearAppBadge())}catch(e){}}
+const PUSH_FN=SB_URL+'/functions/v1/pf-push';
+const u8=s=>{const r=(s+'='.repeat((4-s.length%4)%4)).replace(/-/g,'+').replace(/_/g,'/'),a=atob(r);return Uint8Array.from([...a].map(c=>c.charCodeAt(0)))};
+async function pushSub(){
+ if(!('serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window)){toast('Browser hii haisaidii notifications. Utaona namba ya ujumbe ndani ya ukurasa.');return null}
+ if(await Notification.requestPermission()!=='granted'){toast('Umezuia notifications. Utaona ujumbe ambao haujasomwa ndani ya ukurasa.');return null}
+ try{const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;const {key}=await (await fetch(PUSH_FN)).json();
+  const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(key)});return sub.toJSON()}
+ catch(e){toast('Imeshindikana kuwasha notifications.');return null}}
+$('#admPush').onclick=async()=>{const s=await pushSub();if(!s)return;const {error}=await sb.from('pf_push_subs').upsert({kind:'admin',endpoint:s.endpoint,p256dh:s.keys.p256dh,auth:s.keys.auth},{onConflict:'endpoint'});toast(error?'Failed to enable.':'Admin notifications ON ✓')};
+$('#chBell').onclick=async()=>{
+ if(ls.get('pf_push')){const reg=await navigator.serviceWorker.getRegistration(),sub=reg&&await reg.pushManager.getSubscription();if(sub){await sb.rpc('pf_push_unsub',{p_token:vtok(),p_endpoint:sub.endpoint});await sub.unsubscribe()}ls.set('pf_push','');$('#chBell').classList.remove('on');toast('Notifications zimezimwa.');return}
+ const s=await pushSub();if(!s)return;const {error}=await sb.rpc('pf_push_sub',{p_token:vtok(),p_endpoint:s.endpoint,p_p256dh:s.keys.p256dh,p_auth:s.keys.auth});
+ if(error)return toast('Imeshindikana kuwasha.');ls.set('pf_push','1');$('#chBell').classList.add('on');toast('Utaarifiwa nikikujibu ✓')};
+if(ls.get('pf_push'))$('#chBell').classList.add('on');
+if(/[?&]chat=1/.test(location.search))setTimeout(()=>{if(!CHN.open)$('#chatFab').click()},1200);
 /* liquid nav blob + scroll spy */
 function place(){const on=$('#nav a.on');if(!on)return;const b=$('#blob');b.style.left=on.offsetLeft+'px';b.style.width=on.offsetWidth+'px'}
 $$('#nav a').forEach(a=>{a.onmouseenter=()=>{const b=$('#blob');squash(b);b.style.left=a.offsetLeft+'px';b.style.width=a.offsetWidth+'px'};a.onclick=()=>{$$('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on')}});
