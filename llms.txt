@@ -1,0 +1,16 @@
+# Tirrion Toronto
+
+> Portfolio of Tirrion Toronto (also known as Lucas James), a cybersecurity student and IT problem solver in Arusha, Tanzania. Site: https://tirrion.pages.dev/
+
+## About
+- Cybersecurity, cryptography, Python security tools, IT support, networks and hardware troubleshooting, packaging and graphic design.
+- Languages: Swahili and English.
+
+## Projects
+- SecuDrive: Windows antivirus built with Python and PyQt6 that recovers infected files without data loss.
+- Land Marketplace and Property Verification System for Tanzania (web system).
+
+## Links
+- GitHub: https://github.com/mr-tirrion-toronto
+- LinkedIn: https://www.linkedin.com/in/lucas-james-620513436
+- Privacy: https://tirrion.pages.dev/privacy.html
