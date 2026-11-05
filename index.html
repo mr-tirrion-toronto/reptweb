@@ -273,6 +273,9 @@ button,a,input,textarea,select{touch-action:manipulation}
 }
 @media(prefers-reduced-motion:reduce){.motion-eagle{animation:none!important}.motion-logo{filter:none}}
 
+.beak{position:absolute;left:72%;top:21%;width:27%;height:20%;overflow:visible;filter:drop-shadow(0 2px 3px #120a02);pointer-events:none}.beak path{stroke:#2a1605;stroke-width:3;stroke-linejoin:round}.beak .upper{fill:#f7c451}.beak .mouth{fill:#241006;stroke:none}.beak .lower{fill:#d98b20;transform-box:fill-box;transform-origin:12% 48%;transition:transform .16s ease-out}.eagle.talking .beak .lower{transform:rotate(24deg) translateY(5px)}
+.cry{position:absolute;right:-4%;top:-2%;font:700 30px Caveat,cursive;color:#fbbf24;opacity:0;pointer-events:none;text-shadow:0 2px 8px #000}
+.cry.on{animation:cry 1.8s ease-out}@keyframes cry{0%{opacity:0;transform:scale(.5) rotate(0)}15%{opacity:1;transform:scale(1.15) rotate(8deg)}75%{opacity:1;transform:scale(1) rotate(8deg)}100%{opacity:0;transform:scale(1.2) translateY(-10px) rotate(8deg)}}
 </style>
 </head>
 <body>
@@ -295,7 +298,7 @@ button,a,input,textarea,select{touch-action:manipulation}
 <main id="pub">
   <div class="hero" id="top"><div class="wrap">
     <div><img class="avatar" id="avatar" alt="Profile picture"><h1 id="hName">Mr Tirrion Toronto</h1><p id="hTag"></p><p class="typed">I <b id="tw"></b><i class="cur"></i></p><div class="cta"><a class="lq" href="#work"><span>Explore my work</span></a><span class="hand"><svg class="man" viewBox="0 0 90 100" aria-hidden="true"><circle cx="58" cy="14" r="9"/><circle cx="55" cy="13" r=".6"/><path d="M53 18q4 3 8 0"/><path d="M58 24v32M58 56l-11 24M58 56l11 24"/><path d="M58 34l16 12"/><g class="arm"><path d="M58 32L26 38"/><path d="M26 38l-9-1M17 37l5-5M17 37l5 5"/></g></svg>start here!</span></div></div>
-    <div class="crest" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 9"/><circle cx="100" cy="100" r="80" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="1 7"/></svg><div class="eagle motion-eagle"><picture class="motion-picture"><source media="(prefers-reduced-motion: reduce)" srcset="logo.webp"><img class="motion-logo" src="motion-logo.svg" alt="Mr Tirrion gold eagle and MT monogram logo" width="480" height="480" fetchpriority="high"></picture></div><b class="sp s1">✦</b><b class="sp s2">✧</b><b class="sp s3">✦</b><span class="sticker">Open to work</span></div>
+    <div class="crest" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 9"/><circle cx="100" cy="100" r="80" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="1 7"/></svg><div class="eagle"><div class="tilt"><i class="lg"></i><svg class="eye" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#d99a2b"/><circle cx="50" cy="50" r="46" fill="none" stroke="#2a1a05" stroke-width="8"/><circle class="pup" cx="50" cy="50" r="22" fill="#0a0503"/><circle class="hl" cx="40" cy="38" r="7" fill="#fff" opacity=".9"/><path class="lid" d="M0 50C20 -12 80 -12 100 50C80 112 20 112 0 50Z" fill="#2b1e0c"/></svg><svg class="beak" viewBox="0 0 100 70" aria-hidden="true"><path class="upper" d="M4 7C27 0 62 3 97 18C72 22 42 31 13 40C16 26 12 14 4 7Z"/><path class="mouth" d="M13 39C39 32 69 25 97 18C75 43 42 52 13 43Z"/><path class="lower" d="M13 39C39 32 69 25 97 18C77 52 43 61 11 46Z"/></svg><span class="cry">Kraa!</span></div></div><b class="sp s1">✦</b><b class="sp s2">✧</b><b class="sp s3">✦</b><span class="sticker">Open to work</span></div>
   </div></div>
   <div class="marq" aria-hidden="true"><div class="mt"><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span></div></div>
   <div class="adslot" data-pl="banner_top" aria-label="Sponsored"></div>
@@ -303,7 +306,7 @@ button,a,input,textarea,select{touch-action:manipulation}
   <div class="adslot" data-pl="banner_mid" aria-label="Sponsored"></div>
   <section id="about"><div class="wrap"><h2>About me</h2><p class="about" id="aboutTxt"></p></div></section>
   <section id="contact"><div class="wrap"><h2>Let's work together</h2><p class="sub">Open to internships, junior security and IT roles, and freelance projects. Reach me directly:</p><div class="soc" id="soc"></div></div></section>
-  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="https://nyandwi-land.pages.dev/?public=1" target="_blank" rel="noopener noreferrer">Nyandwi Land Marketplace</a> · <a href="#" id="ckSet">Cookie settings</a></div></footer>
+  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="#" id="ckSet">Cookie settings</a></div></footer>
 </main>
 
 <main id="adm"><div class="wrap">
