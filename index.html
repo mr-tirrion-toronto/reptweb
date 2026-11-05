@@ -273,44 +273,6 @@ button,a,input,textarea,select{touch-action:manipulation}
 }
 @media(prefers-reduced-motion:reduce){.motion-eagle{animation:none!important}.motion-logo{filter:none}}
 
-/* premium black-and-gold visual system */
-:root{--bg:#070707;--panel:#11100e;--line:#3a2b17;--ink:#f5f0e7;--mute:#b9ad9b;--p:#c28a35;--b:#f2c66d;--ok:#5fb88a;--bad:#e87979;--r:20px}
-body:before{background:radial-gradient(42% 40% at 78% 25%,#c28a3518,transparent 70%),radial-gradient(38% 42% at 12% 76%,#b47a2410,transparent 72%);animation:drift 28s ease-in-out infinite alternate}
-.brand{gap:11px;background:#0d0c0af2;border-color:#4a351b;padding:6px 17px 6px 8px}
-.brand-wordmark{display:flex;flex-direction:column;gap:0;line-height:1.15}
-.brand-wordmark b{font:800 12px Sora,sans-serif;letter-spacing:.13em;color:#f5e4c0}
-.brand-wordmark small{font:600 9px 'Space Grotesk',sans-serif;letter-spacing:.12em;color:#b99a69}
-#blob,#ablob{background:linear-gradient(120deg,#9d6720,#e8bd68);box-shadow:0 0 22px #c28a3540}
-nav{background:#0d0c0af2;border-color:#3a2b17}
-nav a.on,nav a:hover{color:#fff8e9}
-.lq{color:#15100a;background:linear-gradient(115deg,#b77a25,#f0c66e 55%,#d89e42);box-shadow:0 8px 26px #bd852d35}
-.lq.ghost{color:#f0d8aa;border-color:#765425;background:transparent}
-.hero h1{background:linear-gradient(100deg,#fff9ec 8%,#e6c17b 52%,#b57a2d);-webkit-background-clip:text;background-clip:text}
-.hero p{color:#c3b8a8}
-.crest:before{background:radial-gradient(closest-side,#d49a3a35,transparent 75%);filter:blur(34px);opacity:.9}
-.orbit,.sp{display:none}
-.sticker{rotate:0deg;border:1px solid #e8bd68;background:#d5a24e;color:#171008;box-shadow:0 10px 26px #0008;animation:none;font:700 13px Sora,sans-serif;letter-spacing:.04em;padding:8px 14px;border-radius:999px}
-.hero-note{font:600 12px 'Space Grotesk',sans-serif;letter-spacing:.04em;color:#b99a69}
-.marq{background:#0b0a08;border-color:#3a2b17}
-.mt span,.mt span:nth-child(even){color:#c7a36b}
-.mt span:after{color:#e6bd70}
-.chip{background:#11100e;color:#c4b69e;border-color:#3a2b17}
-.chip:hover,.chip.on{background:linear-gradient(120deg,#9d6720,#e8bd68);color:#171008;border-color:#d9ad62}
-.card{background:linear-gradient(155deg,#17140f,#0d0c0a);border-color:#342819}
-.card:hover{border-color:#c28a35;box-shadow:0 18px 50px #b77a251c}
-.kind{color:#d6ae68}
-.tags i{border-color:#47351d;color:#c4b69e}
-section h2{color:#f4e7d0}
-section h2:after{background:linear-gradient(90deg,#8f5e22,#e8bd68,transparent);height:2px;bottom:-8px}
-.about{color:#c3b8a8}
-#chatFab{background:linear-gradient(135deg,#a66d22,#e8bd68);box-shadow:0 10px 30px #b77a2540}
-#chatFab svg{stroke:#1a1208}
-footer{border-color:#332719}
-@media(max-width:820px){
- .brand-wordmark small{display:none}
- .brand{padding-right:12px}
- .sticker{font-size:11px;padding:7px 11px}
-}
 </style>
 </head>
 <body>
@@ -323,7 +285,7 @@ footer{border-color:#332719}
 <aside class="sticky top" id="stTop" aria-label="Sponsored"><div class="adbox"></div><button class="x" aria-label="Close ad">&times;</button></aside>
 <div id="prog"></div>
 <header>
-  <a class="brand" href="#top" aria-label="Mr Tirrion Toronto — home"><i class="lg" role="img" aria-label="MT eagle logo"></i><span class="brand-wordmark"><b>MR TIRRION</b><small>CYBERSECURITY · IT</small></span></a>
+  <a class="brand" href="#top" aria-label="Mr Tirrion Toronto — home"><i class="lg" role="img" aria-label="MT eagle logo"></i><small id="brandName" hidden></small></a>
   <nav id="nav" aria-label="Main"><i id="blob"></i><a href="#top" class="on" data-i="🏠">Home</a><a href="#work" data-i="💼">Work</a><a href="#about" data-i="👤">About</a><a href="#contact" data-i="✉️">Contact</a></nav>
   <nav id="anav" aria-label="Admin"><i id="ablob"></i><a href="#" data-t="up" class="on" data-i="➕">Add work</a><a href="#" data-t="ml" data-i="🗂️">Manage</a><a href="#" data-t="ch" data-i="💬">Chats<em class="bdg" id="admBadge" hidden></em></a><a href="#" data-t="cm" data-i="⭐">Comments</a><a href="#" data-t="vs" data-i="📊">Visitors</a><a href="#" data-t="pr" data-i="🖼️">Profile</a><a href="#" data-t="ad" data-i="💰">Ads</a><a href="#" data-t="ac" data-i="⚙️">Account</a><a href="#" id="viewSite" data-i="🌐">View site</a></nav>
   <button class="lq sm" id="loginBtn" type="button"><span>LOGIN</span></button>
@@ -332,7 +294,7 @@ footer{border-color:#332719}
 
 <main id="pub">
   <div class="hero" id="top"><div class="wrap">
-    <div><img class="avatar" id="avatar" alt="Profile picture"><h1 id="hName">Mr Tirrion Toronto</h1><p id="hTag"></p><p class="typed">I <b id="tw"></b><i class="cur"></i></p><div class="cta"><a class="lq" href="#work"><span>Explore my work</span></a><span class="hero-note">Based in Tanzania · Open to opportunities</span></div></div>
+    <div><img class="avatar" id="avatar" alt="Profile picture"><h1 id="hName">Mr Tirrion Toronto</h1><p id="hTag"></p><p class="typed">I <b id="tw"></b><i class="cur"></i></p><div class="cta"><a class="lq" href="#work"><span>Explore my work</span></a><span class="hand"><svg class="man" viewBox="0 0 90 100" aria-hidden="true"><circle cx="58" cy="14" r="9"/><circle cx="55" cy="13" r=".6"/><path d="M53 18q4 3 8 0"/><path d="M58 24v32M58 56l-11 24M58 56l11 24"/><path d="M58 34l16 12"/><g class="arm"><path d="M58 32L26 38"/><path d="M26 38l-9-1M17 37l5-5M17 37l5 5"/></g></svg>start here!</span></div></div>
     <div class="crest" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 9"/><circle cx="100" cy="100" r="80" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="1 7"/></svg><div class="eagle motion-eagle"><picture class="motion-picture"><source media="(prefers-reduced-motion: reduce)" srcset="logo.webp"><img class="motion-logo" src="motion-logo.svg" alt="Mr Tirrion gold eagle and MT monogram logo" width="480" height="480" fetchpriority="high"></picture></div><b class="sp s1">✦</b><b class="sp s2">✧</b><b class="sp s3">✦</b><span class="sticker">Open to work</span></div>
   </div></div>
   <div class="marq" aria-hidden="true"><div class="mt"><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span></div></div>
