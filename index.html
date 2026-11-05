@@ -550,8 +550,9 @@ const CHN={open:false,msgs:[],seen:+(ls.get('pf_seen')||0),n:-1};
 function vtok(){let t=ls.get('pf_vt')||CHN.tok;if(!t||t.length<32){t=crypto.randomUUID().replace(/-/g,'')+crypto.randomUUID().replace(/-/g,'');CHN.tok=t;ls.set('pf_vt',t)}return t}
 async function chFetch(){if(isAdmin||!sb)return;const {data,error}=await sb.rpc('pf_chat_fetch',{p_token:vtok()});if(error)return;CHN.msgs=data||[];const own=CHN.msgs.filter(m=>m.sender==='owner').length;
  if(CHN.open){CHN.seen=own;ls.set('pf_seen',own)}const nb=own-CHN.seen,bd=$('#chatBadge');bd.hidden=!(nb>0);bd.textContent=nb;setTitleCount(nb>0?nb:0);if(CHN.open&&CHN.msgs.length!==CHN.n)chRender()}
-function chRender(){CHN.n=CHN.msgs.length;const box=$('#chMsgs');box.innerHTML='';const add=(w,t,a)=>{const d=document.createElement('div');d.className='m '+w;if(a){const l=document.createElement('a');l.href=chImg(a);l.target='_blank';l.rel='noopener';const i=document.createElement('img');i.src=chImg(a);i.alt='screenshot';i.loading='lazy';i.style.cssText='max-width:100%;border-radius:10px;display:block';l.append(i);d.append(l)}else d.textContent=t;box.append(d)};
- add('owner','Habari! 👋 Karibu. Niulize chochote kuhusu kazi zangu au huduma zangu. / Hi! Ask me anything about my work.');CHN.msgs.forEach(m=>add(m.sender,m.attachment?'':m.body,m.attachment));box.scrollTop=box.scrollHeight}
+async function chRender(){CHN.n=CHN.msgs.length;const box=$('#chMsgs');box.innerHTML='';const add=async(w,t,a)=>{const d=document.createElement('div');d.className='m '+w;if(a){const u=await chImg(a);if(u){const l=document.createElement('a');l.href=u;l.target='_blank';l.rel='noopener noreferrer';const i=document.createElement('img');i.src=u;i.alt='Chat attachment';i.loading='lazy';i.referrerPolicy='no-referrer';i.style.cssText='max-width:100%;border-radius:10px;display:block';l.append(i);d.append(l)}else d.textContent='Attachment unavailable'}else d.textContent=t;box.append(d)};
+ await add('owner','Habari! 👋 Karibu. Niulize chochote kuhusu kazi zangu au huduma zangu. / Hi! Ask me anything about my work.');
+ for(const m of CHN.msgs)await add(m.sender,m.attachment?'':m.body,m.attachment);box.scrollTop=box.scrollHeight}
 $('#chatFab').onclick=()=>{track('chat');autoPush();CHN.open=!CHN.open;$('#chatBox').classList.toggle('open',CHN.open);if(CHN.open){const has=!!ls.get('pf_vn');$('#chIntro').hidden=has;$('#chForm').hidden=!has;chRender();chFetch();setTimeout(()=>(has?$('#chIn'):$('#chName')).focus(),150)}};
 $('#chatBox').querySelector('[data-x]').onclick=()=>$('#chatFab').click();
 $('#chIntro').onsubmit=e=>{e.preventDefault();ls.set('pf_vn',$('#chName').value.trim().slice(0,60));$('#chIntro').hidden=true;$('#chForm').hidden=false;$('#chIn').focus();autoPush()};
@@ -566,7 +567,7 @@ async function loadChats(){const {data:cs}=await sb.from('pf_chats').select('*')
  const L=$('#chList');L.innerHTML='';(cs||[]).forEach(c=>{const b=document.createElement('button');b.className='lq sm ghost chi'+(c.id===curChat?' on':'');b.dataset.id=c.id;b.innerHTML='<span></span>';b.firstChild.textContent=(c.name||'Visitor')+(c.contact?' · '+c.contact:'')+(cnt[c.id]?'  ('+cnt[c.id]+' new)':'');L.append(b)});
  if(!cs||!cs.length)L.innerHTML='<div class="empty">No chats yet.</div>';setBadge(un?un.length:0);if(curChat)openThread(curChat,true)}
 async function openThread(id,quiet){curChat=id;const {data}=await sb.from('pf_messages').select('*').eq('chat_id',id).order('created_at').limit(300);const box=$('#chAMsgs');box.innerHTML='';
- (data||[]).forEach(m=>{const d=document.createElement('div');d.className='m '+(m.sender==='owner'?'visitor':'owner');if(m.attachment){const l=document.createElement('a');l.href=chImg(m.attachment);l.target='_blank';l.rel='noopener';const i=document.createElement('img');i.src=chImg(m.attachment);i.style.cssText='max-width:100%;border-radius:10px;display:block';l.append(i);d.append(l)}else d.textContent=m.body;box.append(d)});box.scrollTop=box.scrollHeight;$('#chAForm').hidden=false;
+ for(const m of (data||[])){const d=document.createElement('div');d.className='m '+(m.sender==='owner'?'visitor':'owner');if(m.attachment){const u=await chImg(m.attachment);if(u){const l=document.createElement('a');l.href=u;l.target='_blank';l.rel='noopener noreferrer';const i=document.createElement('img');i.src=u;i.alt='Chat attachment';i.loading='lazy';i.referrerPolicy='no-referrer';i.style.cssText='max-width:100%;border-radius:10px;display:block';l.append(i);d.append(l)}else d.textContent='Attachment unavailable'}else d.textContent=m.body;box.append(d)}box.scrollTop=box.scrollHeight;$('#chAForm').hidden=false;
  if((data||[]).some(m=>m.sender==='visitor'&&!m.read)){await sb.from('pf_messages').update({read:true}).eq('chat_id',id).eq('sender','visitor').eq('read',false);if(!quiet)loadChats()}}
 $('#chList').onclick=e=>{const b=e.target.closest('button');if(b){curChat=b.dataset.id;loadChats()}};
 $('#chAForm').onsubmit=async e=>{e.preventDefault();const t=$('#chAIn').value.trim();if(!t||!curChat)return;$('#chAIn').value='';
@@ -635,7 +636,12 @@ async function loadStats(){const {data,error}=await sb.rpc('pf_stats',{p_days:+$
 $('#vsDays').onchange=loadStats;
 (()=>{const p=$('#prog');let t=0;addEventListener('scroll',()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;const h=document.documentElement.scrollHeight-innerHeight;p.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')'})},{passive:true})})();
 
-const chImg=p=>sb.storage.from('chat-files').getPublicUrl(p).data.publicUrl;
+const chatUrlCache=new Map();
+async function chImg(p){if(!p)return null;const hit=chatUrlCache.get(p);if(hit&&hit.until>Date.now())return hit.url;
+ const headers={'content-type':'application/json'},body={path:p};
+ if(isAdmin){const {data}=await sb.auth.getSession();const token=data&&data.session&&data.session.access_token;if(!token)return null;headers.authorization='Bearer '+token}
+ else body.token=vtok();
+ try{const r=await fetch(SB_URL+'/functions/v1/pf-chat-media',{method:'POST',headers,body:JSON.stringify(body)});if(!r.ok)return null;const d=await r.json();if(typeof d.url!=='string')return null;chatUrlCache.set(p,{url:d.url,until:Date.now()+45000});return d.url}catch(e){return null}}
 function shrink(file,max=1280){return new Promise((ok,no)=>{const im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):no(),'image/jpeg',.8)};im.onerror=no;im.src=u})}
 $('#chAtt').onclick=()=>$('#chFile').click();
 $('#chFile').onchange=async()=>{const f=$('#chFile').files[0];$('#chFile').value='';if(!f)return;autoPush();toast('Inatuma picha...');
