@@ -355,7 +355,7 @@ async function loadWorks(){
   works=error?[]:data;loadComments().then(()=>renderGrid());renderChips();renderGrid();renderManage();renderAds();
 }
 function renderChips(){
-  const kinds=[...new Set(works.filter(w=>w.published).map(w=>w.kind))];
+  const kinds=[...new Set(works.filter(w=>w.published&&w.visitor_visible).map(w=>w.kind))];
   $('#chips').innerHTML=kinds.length?['all',...kinds].map(k=>`<button class="chip ${k===filter?'on':''}" data-k="${k}">${k==='all'?'Everything':KINDS[k]}</button>`).join(''):'';
   $$('.chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;renderChips();renderGrid()});
 }
@@ -375,7 +375,7 @@ function card(w){
   return `<article class="card"><div class="thumb">${th}</div><div class="bd"><span class="kind">${KINDS[w.kind]}</span><h3>${esc(w.title)}</h3><p>${esc(w.description)}</p><div class="tags">${(w.tags||[]).map(t=>`<i>${esc(t)}</i>`).join('')}</div><div class="acts">${acts.join('')}${cmBtn(w)}</div></div></article>`;
 }
 function renderGrid(){const sg=JSON.stringify([filter,works,cmts.length,adsOn(),nativeAds().length]);if(sg===renderGrid.s)return;renderGrid.s=sg;
-  const list=works.filter(w=>w.published&&(filter==='all'||w.kind===filter));
+  const list=works.filter(w=>w.published&&w.visitor_visible&&(filter==='all'||w.kind===filter));
   const cards=list.map(card),nat=nativeAds();
   nat.forEach((a,i)=>{const at=Math.min(cards.length,3+i*4);cards.splice(at,0,nativeCard(a))});
   $('#grid').innerHTML=list.length?cards.join(''):'<div class="empty">Nothing published yet. Check back soon.</div>';
@@ -384,12 +384,14 @@ function renderGrid(){const sg=JSON.stringify([filter,works,cmts.length,adsOn(),
 }
 function renderManage(){
   if(!isAdmin)return;
-  $('#mlist').innerHTML=works.length?works.map(w=>`<div class="item"><div><b>${esc(w.title)}</b><br><small>${KINDS[w.kind]} · ${w.published?'Published':'Hidden'}${w.featured?' · Featured':''}</small></div><div class="acts"><button class="lq sm" data-a="edit" data-id="${w.id}"><span>Edit</span></button><button class="lq sm ghost" data-a="pub" data-id="${w.id}"><span>${w.published?'Hide':'Publish'}</span></button><button class="lq sm ghost" data-a="feat" data-id="${w.id}"><span>${w.featured?'Unfeature':'Feature'}</span></button><button class="lq sm red" data-a="del" data-id="${w.id}"><span>Delete</span></button></div></div>`).join(''):'<div class="empty">No works yet. Add your first one from the Add work tab.</div>';
+  const approved=works.filter(w=>w.published).length,visible=works.filter(w=>w.published&&w.visitor_visible).length;
+  $('#mlist').innerHTML='<p class="sub">Approved works: '+approved+' · Visible to visitors: '+visible+' · Hidden from visitors: '+(approved-visible)+'</p>'+(works.length?works.map(w=>`<div class="item"><div><b>${esc(w.title)}</b><br><small>${KINDS[w.kind]} · ${w.published?'Approved':'Not approved'} · ${w.visitor_visible?'Visible to visitors':'Hidden from visitors'}${w.featured?' · Featured':''}</small></div><div class="acts"><button class="lq sm" data-a="edit" data-id="${w.id}"><span>Edit</span></button><button class="lq sm ghost" data-a="pub" data-id="${w.id}"><span>${w.published?'Unapprove':'Approve'}</span></button><button class="lq sm ghost" data-a="vis" data-id="${w.id}"><span>${w.visitor_visible?'Hide from visitors':'Unhide for visitors'}</span></button><button class="lq sm ghost" data-a="feat" data-id="${w.id}"><span>${w.featured?'Unfeature':'Feature'}</span></button><button class="lq sm red" data-a="del" data-id="${w.id}"><span>Delete</span></button></div></div>`).join(''):'<div class="empty">No works yet. Add your first one from the Add work tab.</div>');
 }
 $('#mlist').onclick=async e=>{
   const b=e.target.closest('button');if(!b)return;const w=works.find(x=>x.id===b.dataset.id);if(!w)return;
   if(b.dataset.a==='edit'){startEdit(w);return}
   if(b.dataset.a==='pub')await sb.from('pf_works').update({published:!w.published}).eq('id',w.id);
+  if(b.dataset.a==='vis')await sb.from('pf_works').update({visitor_visible:!w.visitor_visible}).eq('id',w.id);
   if(b.dataset.a==='feat')await sb.from('pf_works').update({featured:!w.featured}).eq('id',w.id);
   if(b.dataset.a==='del'){if(!confirm('Delete "'+w.title+'" permanently?'))return;const paths=[w.file_path,w.cover_path].filter(Boolean);if(paths.length)await sb.storage.from(BUCKET).remove(paths);await sb.from('pf_works').delete().eq('id',w.id);toast('Deleted')}
   await loadWorks();
