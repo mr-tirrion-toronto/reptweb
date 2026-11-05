@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+<title id="title">Mr Tirrion eagle monogram</title><desc id="desc">Gold and black eagle head with the MT monogram, with a subtle reveal, blink and beak movement.</desc>
+<defs>
+ <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".48" stop-color="#fff4ce" stop-opacity=".7"/><stop offset=".58" stop-color="#f5bd58" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <clipPath id="markClip"><rect x="0" y="0" width="1024" height="1024"/></clipPath>
+</defs>
+<style>
+ .reveal{transform-origin:50% 50%;animation:reveal 1.2s cubic-bezier(.18,.82,.22,1) both}
+ @keyframes reveal{0%{opacity:0;transform:translateY(26px) scale(.92);filter:blur(7px)}70%{opacity:1;transform:translateY(-3px) scale(1.012);filter:blur(0)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+ .float{transform-origin:50% 50%;animation:float 6s ease-in-out 1.2s infinite}
+ @keyframes float{50%{transform:translateY(-7px)}}
+ .shine{animation:shine 7s ease-in-out 1.4s infinite;transform:translateX(-1250px) skewX(-18deg)}
+ @keyframes shine{0%,22%{transform:translateX(-1250px) skewX(-18deg)}52%,100%{transform:translateX(1450px) skewX(-18deg)}}
+ .lid{transform-box:fill-box;transform-origin:center;animation:blink 5.8s ease-in-out 2s infinite}
+ @keyframes blink{0%,88%,100%{transform:scaleY(0);opacity:0}91%{transform:scaleY(1);opacity:1}94%{transform:scaleY(0);opacity:0}}
+ .gape{transform-origin:850px 292px;animation:gape 6.8s ease-in-out 2.8s infinite}
+ @keyframes gape{0%,78%,100%{opacity:0;transform:scaleY(.1)}81%,86%{opacity:1;transform:scaleY(1)}89%{opacity:0;transform:scaleY(.1)}}
+ @media(prefers-reduced-motion:reduce){.reveal,.float,.shine,.lid,.gape{animation:none!important}.shine,.gape,.lid{display:none}}
+</style>
+<g class="reveal"><g class="float">
+ <image x="0" y="0" width="1024" height="1024" href="logo.webp" xlink:href="logo.webp" preserveAspectRatio="xMidYMid meet"/>
+ <g class="lid"><path d="M738 198 Q770 169 803 198 Q771 207 738 198Z" fill="#d99a2b" stroke="#21170b" stroke-width="5"/><path d="M744 196 Q770 176 798 196" fill="none" stroke="#f7d27b" stroke-width="3"/></g>
+ <g class="gape"><path d="M817 285 Q861 299 895 315 Q900 322 892 327 Q853 310 829 301Z" fill="#080403" stroke="#241406" stroke-width="4"/><path d="M826 289 Q862 301 892 315" fill="none" stroke="#b77a27" stroke-width="3"/></g>
+ <g clip-path="url(#markClip)"><rect class="shine" x="0" y="0" width="170" height="1024" fill="url(#shine)" opacity=".55"/></g>
+</g></g>
+</svg>
