@@ -549,11 +549,11 @@ const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k
 const CHN={open:false,msgs:[],seen:+(ls.get('pf_seen')||0),n:-1};
 function vtok(){let t=ls.get('pf_vt')||CHN.tok;if(!t||t.length<32){t=crypto.randomUUID().replace(/-/g,'')+crypto.randomUUID().replace(/-/g,'');CHN.tok=t;ls.set('pf_vt',t)}return t}
 async function chFetch(){if(isAdmin||!sb)return;const {data,error}=await sb.rpc('pf_chat_fetch',{p_token:vtok()});if(error)return;CHN.msgs=data||[];const own=CHN.msgs.filter(m=>m.sender==='owner').length;
- if(CHN.open){CHN.seen=own;ls.set('pf_seen',own)}const nb=own-CHN.seen,bd=$('#chatBadge');bd.hidden=!(nb>0);bd.textContent=nb;setTitleCount(nb>0?nb:0);if(CHN.open&&CHN.msgs.length!==CHN.n)chRender()}
+ if(CHN.open){CHN.seen=own;ls.set('pf_seen',own)}const nb=own-CHN.seen,bd=$('#chatBadge');bd.hidden=!(nb>0);bd.textContent=nb;setTitleCount(nb>0?nb:0);if(CHN.open&&CHN.msgs.length!==CHN.n)await chRender()}
 async function chRender(){CHN.n=CHN.msgs.length;const box=$('#chMsgs');box.innerHTML='';const add=async(w,t,a)=>{const d=document.createElement('div');d.className='m '+w;if(a){const u=await chImg(a);if(u){const l=document.createElement('a');l.href=u;l.target='_blank';l.rel='noopener noreferrer';const i=document.createElement('img');i.src=u;i.alt='Chat attachment';i.loading='lazy';i.referrerPolicy='no-referrer';i.style.cssText='max-width:100%;border-radius:10px;display:block';l.append(i);d.append(l)}else d.textContent='Attachment unavailable'}else d.textContent=t;box.append(d)};
  await add('owner','Habari! 👋 Karibu. Niulize chochote kuhusu kazi zangu au huduma zangu. / Hi! Ask me anything about my work.');
  for(const m of CHN.msgs)await add(m.sender,m.attachment?'':m.body,m.attachment);box.scrollTop=box.scrollHeight}
-$('#chatFab').onclick=()=>{track('chat');autoPush();CHN.open=!CHN.open;$('#chatBox').classList.toggle('open',CHN.open);if(CHN.open){const has=!!ls.get('pf_vn');$('#chIntro').hidden=has;$('#chForm').hidden=!has;chRender();chFetch();setTimeout(()=>(has?$('#chIn'):$('#chName')).focus(),150)}};
+$('#chatFab').onclick=()=>{track('chat');autoPush();CHN.open=!CHN.open;$('#chatBox').classList.toggle('open',CHN.open);if(CHN.open){const has=!!ls.get('pf_vn');$('#chIntro').hidden=has;$('#chForm').hidden=!has;chFetch();setTimeout(()=>(has?$('#chIn'):$('#chName')).focus(),150)}};
 $('#chatBox').querySelector('[data-x]').onclick=()=>$('#chatFab').click();
 $('#chIntro').onsubmit=e=>{e.preventDefault();ls.set('pf_vn',$('#chName').value.trim().slice(0,60));$('#chIntro').hidden=true;$('#chForm').hidden=false;$('#chIn').focus();autoPush()};
 $('#chForm').onsubmit=async e=>{e.preventDefault();autoPush();const inp=$('#chIn'),t=inp.value.trim();if(!t)return;inp.value='';CHN.msgs.push({sender:'visitor',body:t});chRender();
@@ -644,8 +644,9 @@ async function chImg(p){if(!p)return null;const hit=chatUrlCache.get(p);if(hit&&
  try{const r=await fetch(SB_URL+'/functions/v1/pf-chat-media',{method:'POST',headers,body:JSON.stringify(body)});if(!r.ok)return null;const d=await r.json();if(typeof d.url!=='string')return null;chatUrlCache.set(p,{url:d.url,until:Date.now()+45000});return d.url}catch(e){return null}}
 function shrink(file,max=1280){return new Promise((ok,no)=>{const im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?ok(b):no(),'image/jpeg',.8)};im.onerror=no;im.src=u})}
 $('#chAtt').onclick=()=>$('#chFile').click();
-$('#chFile').onchange=async()=>{const f=$('#chFile').files[0];$('#chFile').value='';if(!f)return;autoPush();toast('Inatuma picha...');
- try{const b=await shrink(f),fd=new FormData();fd.append('token',vtok());fd.append('name',ls.get('pf_vn')||'');fd.append('file',b,'s.jpg');const r=await fetch(SB_URL+'/functions/v1/pf-upload',{method:'POST',body:fd});if(!r.ok)throw 0;await chFetch();chRender();toast('Picha imetumwa ✓')}catch(e){toast('Picha haikutumwa. Jaribu tena.')}};
+let chatUploadBusy=false;
+$('#chFile').onchange=async()=>{const f=$('#chFile').files[0];$('#chFile').value='';if(!f||chatUploadBusy)return;chatUploadBusy=true;$('#chAtt').disabled=true;autoPush();toast('Inatuma picha...');
+ try{const b=await shrink(f),fd=new FormData();fd.append('token',vtok());fd.append('name',ls.get('pf_vn')||'');fd.append('file',b,'s.jpg');const r=await fetch(SB_URL+'/functions/v1/pf-upload',{method:'POST',body:fd});if(!r.ok)throw 0;await chFetch();toast('Picha imetumwa ✓')}catch(e){toast('Picha haikutumwa. Jaribu tena.')}finally{chatUploadBusy=false;$('#chAtt').disabled=false}};
 $('#chAAtt').onclick=()=>$('#chAFile').click();
 $('#chAFile').onchange=async()=>{const f=$('#chAFile').files[0];$('#chAFile').value='';if(!f||!curChat)return;
  try{const b=await shrink(f),p='admin/'+crypto.randomUUID()+'.jpg',{error}=await sb.storage.from('chat-files').upload(p,b,{contentType:'image/jpeg'});if(error)throw error;
