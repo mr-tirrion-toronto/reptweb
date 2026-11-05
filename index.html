@@ -591,7 +591,7 @@ $('#cmForm').onsubmit=async e=>{e.preventDefault();const name=$('#cmName').value
 async function loadAdminComments(){const {data}=await sb.from('pf_comments').select('*,pf_works(title)').order('created_at',{ascending:false}).limit(500);const L=$('#cmList');L.innerHTML='';
  const rows=data||[],approved=rows.filter(c=>c.approved),visible=approved.filter(c=>c.public_visible).length,hidden=approved.length-visible;
  $('#cmSummary').innerHTML='<div><b>'+rows.length+'</b><span>All comments</span></div><div><b>'+approved.length+'</b><span>Approved</span></div><div><b>'+visible+'</b><span>Publicly visible</span></div><div><b>'+hidden+'</b><span>Hidden (count retained)</span></div>';
- rows.forEach(c=>{const d=document.createElement('div');d.className='item';const l=document.createElement('div');l.innerHTML='<b></b> <small></small><br><span class="cb"></span>');
+ rows.forEach(c=>{const d=document.createElement('div');d.className='item';const l=document.createElement('div');l.innerHTML='<b></b> <small></small><br><span class="cb"></span>';
   l.querySelector('b').textContent=c.name+(c.rating?' · '+'★'.repeat(c.rating):'');l.querySelector('small').textContent='on "'+((c.pf_works&&c.pf_works.title)||'')+'" · '+(c.approved?(c.public_visible?'Approved · Visible':'Approved · Hidden'):'Waiting approval');l.querySelector('.cb').textContent=c.body;
   const a=document.createElement('div');a.className='acts';
   const actions=[[c.approved?'Unapprove':'Approve','ap']];if(c.approved)actions.push([c.public_visible?'Hide from visitors':'Show to visitors','vis']);actions.push(['Delete','rm']);
