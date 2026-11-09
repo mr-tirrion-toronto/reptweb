@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 23745)
+Total output lines: 675
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,7 +263,7 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
   <div class="adslot" data-pl="banner_mid" aria-label="Sponsored"></div>
   <section id="about"><div class="wrap"><h2>About me</h2><p class="about" id="aboutTxt"></p></div></section>
   <section id="contact"><div class="wrap"><h2>Let's work together</h2><p class="sub">Open to internships, junior security and IT roles, and freelance projects. Reach me directly:</p><div class="soc" id="soc"></div></div></section>
-  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="#" id="ckSet">Cookie settings</a></div></footer>
+  <footer><div class="wrap">© <span id="yr"></span> Mr Tirrion Toronto · <a href="secudrive.html">SecuDrive for Windows</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="#" id="ckSet">Cookie settings</a></div></footer>
 </main>
 
 <main id="adm"><div class="wrap">
@@ -288,127 +291,7 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
     <label>Separate profile picture (DP — upload square or rectangular; it is displayed in a round frame)</label><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><img id="dpPrev" class="dp" alt="Current profile picture"><div><input type="file" id="sAvatar" accept="image/*"><button type="button" class="lq sm red" id="dpDel" style="margin-top:8px"><span>Remove picture</span></button></div></div>
     <label>Social links (one per line: Name | https://link)</label><textarea id="sSoc" placeholder="GitHub | https://github.com/you"></textarea><br><button class="lq" id="saveSet"><span>Save profile</span></button></div>
 
-  <div class="panel" data-p="ad" hidden><h2 style="font-size:26px">Ads &amp; earnings</h2>
-    <p class="sub">Never click your own ads. Ads are hidden while you are logged in and on sites with no published work.</p>
-    <label>Google AdSense publisher ID (ca-pub-1234567890123456)</label><input type="text" id="aClient" placeholder="ca-pub-...">
-    <label><input type="checkbox" id="aOn"> Show ads on the public site</label><button class="lq sm" id="saveAdSet"><span>Save ad settings</span></button>
-    <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
-    <h3>Add an ad</h3>
-    <div class="row"><div><label>Placement</label><select id="aPl"><option value="banner_top">Banner (above work)</option><option value="banner_mid">Banner (before About)</option><option value="sticky_top">Sticky header</option><option value="sticky_bottom">Sticky footer</option><option value="native">Native (inside work grid)</option></select></div>
-    <div><label>Kind</label><select id="aType"><option value="adsense">AdSense unit</option><option value="image">Sponsor image</option><option value="native">Sponsored card</option></select></div></div>
-    <div class="row"><div><label>AdSense ad slot ID (digits)</label><input type="text" id="aSlot"></div><div><label>In-feed layout key (native AdSense, optional)</label><input type="text" id="aLay"></div></div>
-    <div class="row"><div><label>Sponsor name</label><input type="text" id="aSp" maxlength="60"></div><div><label>Link (https://)</label><input type="url" id="aLink"></div></div>
-    <div class="row"><div><label>Title (sponsored card)</label><input type="text" id="aTitle" maxlength="120"></div><div><label>Button text</label><input type="text" id="aCta" maxlength="30" placeholder="Learn more"></div></div>
-    <label>Text (sponsored card)</label><textarea id="aBody" maxlength="300" style="min-height:70px"></textarea>
-    <label>Image (banner or card)</label><input type="file" id="aImg" accept="image/*"><br><button class="lq" id="saveAd"><span>Add ad</span></button>
-    <h3 style="margin-top:26px">Your ads</h3><div id="alist"></div></div>
-
-  <div class="panel" data-p="ac" hidden><h2 style="font-size:26px">Account</h2><label>Admin username (shown to you in the dashboard)</label><input type="text" id="accUser" maxlength="40"><label>Login email (a confirmation link is sent to the new address)</label><input type="email" id="accEmail"><br><button class="lq" id="saveAcc"><span>Save account</span></button><h3 style="margin-top:28px">Change password</h3>
-    <label>New password (min 10 characters)</label><input type="password" id="np" autocomplete="new-password"><label>Repeat password</label><input type="password" id="np2" autocomplete="new-password"><br><button class="lq" id="chgPw"><span>Update password</span></button></div>
-</div></main>
-
-<aside class="sticky bot" id="stBot" aria-label="Sponsored"><div class="adbox"></div><button class="x" aria-label="Close ad">&times;</button></aside>
-<div class="panel setup" id="setup"><h2 style="font-size:24px">Backend not reachable</h2><p class="sub">The Supabase library could not load. Check your internet connection and reload.</p></div>
-<button class="lq" id="backAdm" type="button"><span>Back to admin</span></button>
-<button id="chatFab" type="button" aria-label="Chat with me"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.4A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg><b id="chatBadge" hidden></b></button>
-<div id="chatBox" role="dialog" aria-label="Chat"><div class="ch-h"><i class="lg"></i><div><b>Chat with me</b><small>I reply as soon as I can</small></div><button type="button" class="bell" id="chBell" title="Notify me" aria-label="Notifications">🔔</button><button type="button" data-x aria-label="Close">&times;</button></div><div id="chMsgs"></div>
-<form id="chIntro" hidden><input id="chName" type="text" maxlength="60" placeholder="Your name" required><button class="lq" type="submit"><span>Start chat</span></button></form>
-<form id="chForm" hidden><button type="button" class="att" id="chAtt" aria-label="Attach screenshot">📎</button><input type="file" id="chFile" accept="image/*" hidden><input id="chIn" type="text" maxlength="1000" placeholder="Write a message..." autocomplete="off"><button class="lq sm" type="submit"><span>Send</span></button></form></div>
-<div id="cmModal" role="dialog" aria-modal="true"><div class="lbox cmbox"><button class="lx" data-close type="button" aria-label="Close">&times;</button><h2 id="cmTitle" style="font-size:22px;margin-bottom:10px"></h2><div id="cmItems"></div><form id="cmForm"><label for="cmName">Your name</label><input id="cmName" type="text" maxlength="60" required><label for="cmRate">Rating</label><select id="cmRate"><option value="5">★★★★★ Excellent</option><option value="4">★★★★ Good</option><option value="3">★★★ OK</option><option value="2">★★ Weak</option><option value="1">★ Poor</option><option value="">No rating</option></select><label for="cmBody">Your comment</label><textarea id="cmBody" maxlength="600" required></textarea><br><button class="lq" id="cmGo" type="submit"><span>Send comment</span></button></form></div></div>
-<div id="ck" role="dialog" aria-label="Cookies" hidden><p>🍪 We use cookies to personalise ads for your region and to count visits by country. Accept or reject. <a href="privacy.html">Privacy Policy</a></p><div><button class="lq sm" id="ckOk" type="button"><span>Accept</span></button> <button class="lq sm ghost" id="ckNo" type="button"><span>Reject</span></button></div></div>
-<div id="loginModal" role="dialog" aria-modal="true" aria-label="Admin login"><div class="lbox"><button class="lx" data-close type="button" aria-label="Close">&times;</button><i class="lg"></i><h2 style="text-align:center;font-size:26px">Admin login</h2>
-<form id="loginForm" autocomplete="on"><label for="em">Email</label><input id="em" type="email" required autocomplete="username"><label for="pw">Password</label><div class="pwrow"><input id="pw" type="password" required autocomplete="current-password"><button type="button" class="eye" id="eye">Show</button></div><div id="lmMsg" role="alert"></div><button class="lq" id="goBtn" type="submit" style="width:100%"><span>Enter</span></button><p style="text-align:center;margin-top:12px"><button type="button" class="eye" id="forgot">Forgot password?</button></p></form></div></div>
-<div id="toast" role="status"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script>
-const SB_URL='https://swxcycissxmxuazkpoay.supabase.co';
-const SB_KEY='sb_publishable_u4CIhnsKdHM_XmFDwfaV6A_dSeFwded'; // public key; data is protected by Row Level Security
-const BUCKET='portfolio-media';
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const safeUrl=u=>/^(https?:\/\/|mailto:)/i.test(u||'')?u:'#';
-const KINDS={document:'Document',image:'Picture',video:'Video',audio:'Audio',archive:'Archive',app:'App',website:'Website',other:'File'};
-const ICON={document:'DOC',archive:'ZIP',app:'APP',website:'WEB',other:'FILE'};
-let sb,works=[],settings=null,filter='all',isAdmin=false,ads=[],adsLoaded=false;
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),3200)}
-const pubUrl=p=>p?sb.storage.from(BUCKET).getPublicUrl(p).data.publicUrl:null;
-const fmt=n=>!n?'':n>1e6?(n/1e6).toFixed(1)+' MB':Math.max(1,Math.round(n/1e3))+' KB';
-
-function boot(){sb=supabase.createClient(SB_URL,SB_KEY);init()}
-if(window.supabase)boot();else{const sc=document.createElement('script');sc.src='https://unpkg.com/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js';sc.onload=boot;sc.onerror=()=>{$('#setup').style.display='block'};document.head.append(sc)}
-
-async function init(){
-  $('#yr').textContent=new Date().getFullYear();
-  const ready=Promise.all([loadSettings(),loadWorks(),loadAds()]);
-  sb.auth.onAuthStateChange((_e,sess)=>{setTimeout(async()=>{await ready;applyAuth(sess)},0)});
-  await ready;
-}
-async function loadSettings(){
-  const {data}=await sb.from('pf_settings').select('*').eq('id',1).maybeSingle();settings=data||{};applyLogo();
-  const n=settings.owner_name||'Mr Tirrion Toronto';$('#hName').textContent=n;$('#hTag').textContent=settings.tagline||'';
-  $('#aboutTxt').textContent=settings.about||'The About section is empty. The owner can write it from the dashboard.';
-  const av=$('#avatar');if(settings.avatar_path){av.src=pubUrl(settings.avatar_path);av.style.display='block'}else av.style.display='none';
-  const soc=$('#soc');soc.innerHTML='';(settings.socials||[]).forEach(s=>{const a=document.createElement('a');a.className='lq';a.href=safeUrl(s.url);a.target='_blank';a.rel='noopener noreferrer';a.innerHTML='<span>'+esc(s.name)+'</span>';soc.append(a)});
-}
-async function loadWorks(){
-  const {data,error}=await sb.from('pf_works').select('*').order('featured',{ascending:false}).order('created_at',{ascending:false});
-  works=error?[]:data;loadComments().then(()=>renderGrid());renderChips();renderGrid();renderManage();renderAds();
-}
-function renderChips(){
-  const kinds=[...new Set(works.filter(w=>w.published&&w.visitor_visible).map(w=>w.kind))];
-  $('#chips').innerHTML=kinds.length?['all',...kinds].map(k=>`<button class="chip ${k===filter?'on':''}" data-k="${k}">${k==='all'?'Everything':KINDS[k]}</button>`).join(''):'';
-  $$('.chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;renderChips();renderGrid()});
-}
-function card(w){
-  const file=pubUrl(w.file_path),cover=pubUrl(w.cover_path);let th;
-  if(w.kind==='image'&&(file||cover))th=`<img loading="lazy" alt="${esc(w.title)}" src="${esc(cover||file)}">`;
-  else if(w.kind==='video'&&file)th=`<video controls preload="metadata" ${cover?`poster="${esc(cover)}"`:''} src="${esc(file)}"></video>`;
-  else if(w.kind==='audio'&&file)th=`<audio controls preload="none" src="${esc(file)}"></audio>`;
-  else if(cover)th=`<img loading="lazy" alt="" src="${esc(cover)}">`;
-  else th=kindIcon(w);
-  const acts=[];
-  if(w.url)acts.push(`<a class="lq sm" target="_blank" rel="noopener noreferrer" href="${esc(safeUrl(w.url))}"><span>🔗 Open link</span></a>`);
-  if(w.download_url)acts.push(`<a class="lq sm ghost" rel="noopener" href="${esc(safeUrl(w.download_url))}"><span>⬇ Download</span></a>`);
-  if(file){const dl=sb.storage.from(BUCKET).getPublicUrl(w.file_path,{download:w.file_name||true}).data.publicUrl;
-    if(/^(image|video|audio|document)$/.test(w.kind))acts.push(`<a class="lq sm ghost" target="_blank" rel="noopener noreferrer" href="${esc(file)}"><span>👁 View</span></a>`);
-    acts.push(`<a class="lq sm ghost" rel="noopener" href="${esc(dl)}"><span>⬇ Download ${esc(fmt(w.file_size))}</span></a>`)}
-  return `<article class="card"><div class="thumb">${th}</div><div class="bd"><span class="kind">${KINDS[w.kind]}</span><h3>${esc(w.title)}</h3><p>${esc(w.description)}</p><div class="tags">${(w.tags||[]).map(t=>`<i>${esc(t)}</i>`).join('')}</div><div class="acts">${acts.join('')}${cmBtn(w)}</div></div></article>`;
-}
-function renderGrid(){const sg=JSON.stringify([filter,works,cmts.length,adsOn(),nativeAds().length]);if(sg===renderGrid.s)return;renderGrid.s=sg;
-  const list=works.filter(w=>w.published&&w.visitor_visible&&(filter==='all'||w.kind===filter));
-  const cards=list.map(card),nat=nativeAds();
-  nat.forEach((a,i)=>{const at=Math.min(cards.length,3+i*4);cards.splice(at,0,nativeCard(a))});
-  $('#grid').innerHTML=list.length?cards.join(''):'<div class="empty">Nothing published yet. Check back soon.</div>';
-  mountAdsense($('#grid'));reveal();
-  $$('.card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-6px)`};c.onmouseleave=()=>c.style.transform=''});
-}
-function renderManage(){
-  if(!isAdmin)return;
-  const approved=works.filter(w=>w.published).length,visible=works.filter(w=>w.published&&w.visitor_visible).length;
-  $('#mlist').innerHTML='<p class="sub">Approved works: '+approved+' · Visible to visitors: '+visible+' · Hidden from visitors: '+(approved-visible)+'</p>'+(works.length?works.map(w=>`<div class="item"><div><b>${esc(w.title)}</b><br><small>${KINDS[w.kind]} · ${w.published?'Approved':'Not approved'} · ${w.visitor_visible?'Visible to visitors':'Hidden from visitors'}${w.featured?' · Featured':''}</small></div><div class="acts"><button class="lq sm" data-a="edit" data-id="${w.id}"><span>Edit</span></button><button class="lq sm ghost" data-a="pub" data-id="${w.id}"><span>${w.published?'Unapprove':'Approve'}</span></button><button class="lq sm ghost" data-a="vis" data-id="${w.id}"><span>${w.visitor_visible?'Hide from visitors':'Unhide for visitors'}</span></button><button class="lq sm ghost" data-a="feat" data-id="${w.id}"><span>${w.featured?'Unfeature':'Feature'}</span></button><button class="lq sm red" data-a="del" data-id="${w.id}"><span>Delete</span></button></div></div>`).join(''):'<div class="empty">No works yet. Add your first one from the Add work tab.</div>');
-}
-$('#mlist').onclick=async e=>{
-  const b=e.target.closest('button');if(!b)return;const w=works.find(x=>x.id===b.dataset.id);if(!w)return;
-  if(b.dataset.a==='edit'){startEdit(w);return}
-  if(b.dataset.a==='pub')await sb.from('pf_works').update({published:!w.published}).eq('id',w.id);
-  if(b.dataset.a==='vis')await sb.from('pf_works').update({visitor_visible:!w.visitor_visible}).eq('id',w.id);
-  if(b.dataset.a==='feat')await sb.from('pf_works').update({featured:!w.featured}).eq('id',w.id);
-  if(b.dataset.a==='del'){if(!confirm('Delete "'+w.title+'" permanently?'))return;const paths=[w.file_path,w.cover_path].filter(Boolean);if(paths.length)await sb.storage.from(BUCKET).remove(paths);await sb.from('pf_works').delete().eq('id',w.id);toast('Deleted')}
-  await loadWorks();
-};
-/* auth */
-async function applyAuth(session){
-  let ok=false;
-  if(session){const {data}=await sb.from('pf_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();ok=!!data}
-  isAdmin=ok;me=session&&session.user;document.body.classList.toggle('admin',ok);renderAds();renderGrid();$('#outBtn').style.display=ok?'':'none';
-  if(session&&!ok){toast('This account is not the site admin.');await sb.auth.signOut()}
-  if(ok){fillSettingsForm();await loadWorks();if(location.hash==='#chats')showTab('ch');if(session.user.user_metadata?.must_change){showTab('ac');toast('Please set your own password now.')}}
-  place();
-}
-const lm=$('#loginModal');
-$('#loginBtn').onclick=()=>{lm.classList.add('open');setTimeout(()=>$('#em').focus(),60)};
-lm.onclick=e=>{if(e.target===lm||e.target.closest('[data-close]'))lm.classList.remove('open')};
+  <div class="panel" …3745 tokens truncated…||e.target.closest('[data-close]'))lm.classList.remove('open')};
 addEventListener('keydown',e=>{if(e.key==='Escape')lm.classList.remove('open')});
 $('#loginForm').onsubmit=async e=>{e.preventDefault();const b=$('#goBtn'),sp=b.querySelector('span'),m=$('#lmMsg');m.style.color='';m.textContent='';b.disabled=true;sp.textContent='Signing in...';
  const {error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
@@ -672,3 +555,4 @@ $$('.lq').forEach(b=>b.addEventListener('pointermove',e=>{const r=b.getBoundingC
 </script>
 </body>
 </html>
+
