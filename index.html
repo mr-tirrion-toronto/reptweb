@@ -230,6 +230,13 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
 .cry.on{animation:cry 1.8s ease-out}@keyframes cry{0%{opacity:0;transform:scale(.5) rotate(0)}15%{opacity:1;transform:scale(1.15) rotate(8deg)}75%{opacity:1;transform:scale(1) rotate(8deg)}100%{opacity:0;transform:scale(1.2) translateY(-10px) rotate(8deg)}}
 .custom-logo .eye,.custom-logo .cry{display:none}
 
+.logo-anim{position:relative;width:min(94%,460px);aspect-ratio:1;animation:float 7s ease-in-out infinite;-webkit-mask-image:radial-gradient(closest-side,#000 72%,transparent 100%);mask-image:radial-gradient(closest-side,#000 72%,transparent 100%)}
+.hv{width:100%;height:100%;object-fit:cover;display:block}.sl{display:none}.lite .logo-anim{display:none}.lite .sl{display:block}
+@media(prefers-reduced-motion:reduce){.logo-anim{display:none}.sl{display:block}}
+.crest:before{background:radial-gradient(closest-side,#f5c54238,#8b5cf644 55%,transparent 74%);animation:glow 5s ease-in-out infinite alternate}@keyframes glow{to{opacity:.55;transform:scale(1.08)}}
+.hero h1{background:linear-gradient(100deg,#fff 5%,#f7d98b 48%,#c4b5fd 88%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media(min-width:821px){.hero .wrap{grid-template-columns:1fr 1fr}.hero h1{font-size:clamp(40px,5.4vw,74px)}}
+.card{box-shadow:0 10px 30px #0006}footer{border-top:0;position:relative}footer:before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#8b5cf6,#f5c542,transparent)}
 </style>
 </head>
 <body>
@@ -252,7 +259,7 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
 <main id="pub">
   <div class="hero" id="top"><div class="wrap">
     <div><img class="avatar" id="avatar" alt="Profile picture"><h1 id="hName">Mr Tirrion Toronto</h1><p id="hTag"></p><p class="typed">I <b id="tw"></b><i class="cur"></i></p><div class="cta"><a class="lq" href="#work"><span>Explore my work</span></a><span class="hand"><svg class="man" viewBox="0 0 90 100" aria-hidden="true"><circle cx="58" cy="14" r="9"/><circle cx="55" cy="13" r=".6"/><path d="M53 18q4 3 8 0"/><path d="M58 24v32M58 56l-11 24M58 56l11 24"/><path d="M58 34l16 12"/><g class="arm"><path d="M58 32L26 38"/><path d="M26 38l-9-1M17 37l5-5M17 37l5 5"/></g></svg>start here!</span></div></div>
-    <div class="crest" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 9"/><circle cx="100" cy="100" r="80" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="1 7"/></svg><div class="eagle"><div class="tilt"><i class="lg"></i><svg class="eye" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#d99a2b"/><circle cx="50" cy="50" r="46" fill="none" stroke="#2a1a05" stroke-width="8"/><circle class="pup" cx="50" cy="50" r="22" fill="#0a0503"/><circle class="hl" cx="40" cy="38" r="7" fill="#fff" opacity=".9"/><path class="lid" d="M0 50C20 -12 80 -12 100 50C80 112 20 112 0 50Z" fill="#2b1e0c"/></svg><span class="cry">Kraa!</span></div></div><b class="sp s1">✦</b><b class="sp s2">✧</b><b class="sp s3">✦</b><span class="sticker">Open to work</span></div>
+    <div class="crest" aria-hidden="true"><svg class="orbit" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3 9"/><circle cx="100" cy="100" r="80" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="1 7"/></svg><div class="logo-anim"></div><i class="lg sl"></i><b class="sp s1">✦</b><b class="sp s2">✧</b><b class="sp s3">✦</b><span class="sticker">Open to work</span></div>
   </div></div>
   <div class="marq" aria-hidden="true"><div class="mt"><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span><span>Cybersecurity</span><span>Cryptography</span><span>Python tools</span><span>IT support</span><span>Networks</span><span>Hardware repair</span><span>Packaging design</span><span>Diagrams</span><span>Swahili &amp; English</span></div></div>
   <div class="adslot" data-pl="banner_top" aria-label="Sponsored"></div>
@@ -286,6 +293,7 @@ ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
     <label>Display name</label><input type="text" id="sName"><label>Tagline</label><input type="text" id="sTag"><label>About me</label><textarea id="sAbout" style="min-height:160px"></textarea>
     <label>Logo (header icon, big hero image and tab icon: change once, all update)</label><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><i class="lg dpl" id="logoPrev"></i><div><input type="file" id="sLogo" accept="image/*"><button type="button" class="lq sm ghost" id="logoReset" style="margin-top:8px"><span>Use default logo</span></button></div></div>
     <label>Separate profile picture (DP — upload square or rectangular; it is displayed in a round frame)</label><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><img id="dpPrev" class="dp" alt="Current profile picture"><div><input type="file" id="sAvatar" accept="image/*"><button type="button" class="lq sm red" id="dpDel" style="margin-top:8px"><span>Remove picture</span></button></div></div>
+    <label>Home animation (GIF, MP4 or WebM, max 8 MB; replaces the animated logo on the home page)</label><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><input type="file" id="sHero" accept="image/gif,image/webp,video/mp4,video/webm"><button type="button" class="lq sm ghost" id="heroReset"><span>Use default animation</span></button></div>
     <label>Social links (one per line: Name | https://link)</label><textarea id="sSoc" placeholder="GitHub | https://github.com/you"></textarea><br><button class="lq" id="saveSet"><span>Save profile</span></button></div>
 
   <div class="panel" data-p="ad" hidden><h2 style="font-size:26px">Ads &amp; earnings</h2>
@@ -345,7 +353,7 @@ async function init(){
   await ready;
 }
 async function loadSettings(){
-  const {data}=await sb.from('pf_settings').select('*').eq('id',1).maybeSingle();settings=data||{};applyLogo();
+  const {data}=await sb.from('pf_settings').select('*').eq('id',1).maybeSingle();settings=data||{};applyLogo();applyHero();
   const n=settings.owner_name||'Mr Tirrion Toronto';$('#hName').textContent=n;$('#hTag').textContent=settings.tagline||'';
   $('#aboutTxt').textContent=settings.about||'The About section is empty. The owner can write it from the dashboard.';
   const av=$('#avatar');if(settings.avatar_path){av.src=pubUrl(settings.avatar_path);av.style.display='block'}else av.style.display='none';
@@ -455,6 +463,7 @@ $('#saveSet').onclick=async()=>{
     const socials=$('#sSoc').value.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(p=>p[0]&&/^(https?:\/\/|mailto:)/i.test(p[1]||'')).map(p=>({name:p[0],url:p[1]}));
     const patch={owner_name:$('#sName').value.trim()||'Mr Tirrion Toronto',tagline:$('#sTag').value.trim(),about:$('#sAbout').value,socials,updated_at:new Date().toISOString()};
     const a=$('#sAvatar').files[0];if(a)patch.avatar_path=await upload(a,'profile');
+    const hv=$('#sHero').files[0];if(hv){if(hv.size>8e6)return toast('Animation must be under 8 MB.');patch.hero_media=await upload(hv,'profile')}
     const lg=$('#sLogo').files[0];if(lg){if(lg.size>5e6)return toast('Logo must be under 5 MB.');patch.logo_path=await upload(lg,'profile')}
     const {error}=await sb.from('pf_settings').update(patch).eq('id',1);if(error)throw error;
     toast('Profile saved');await loadSettings();fillExtra();
@@ -661,6 +670,12 @@ $('#chAFile').onchange=async()=>{const f=$('#chAFile').files[0];$('#chAFile').va
 async function autoPush(){if(isAdmin||ls.get('pf_push')||ls.get('pf_push_off')||!('Notification' in window)||Notification.permission==='denied')return;const s=await pushSub();if(!s)return;const {error}=await sb.rpc('pf_push_sub',{p_token:vtok(),p_endpoint:s.endpoint,p_p256dh:s.keys.p256dh,p_auth:s.keys.auth});if(!error){ls.set('pf_push','1');$('#chBell').classList.add('on')}}
 async function autoAdminPush(){if(ls.get('pf_apush')||!('Notification' in window)||Notification.permission==='denied')return;const s=await pushSub();if(!s)return;const {error}=await sb.from('pf_push_subs').upsert({kind:'admin',endpoint:s.endpoint,p256dh:s.keys.p256dh,auth:s.keys.auth},{onConflict:'endpoint'});if(!error){ls.set('pf_apush','1');toast('Admin notifications ON ✓')}}
 /* The homepage eagle is rendered as a lightweight, accessible animated SVG. */
+let heroKey='';
+function mkHero(src,vid){if(heroKey===src)return;const b=$('.logo-anim');if(!b)return;heroKey=src;b.innerHTML=vid?'<video class="hv" muted playsinline autoplay preload="auto" aria-hidden="true"></video>':'<img class="hv" alt="">';const e=b.firstChild;
+ if(vid){e.muted=true;e.addEventListener('ended',()=>setTimeout(()=>{try{e.currentTime=0;e.play()}catch(x){}},4500))}e.src=src;if(vid&&e.play)e.play().catch(()=>{})}
+function applyHero(){const p=settings&&settings.hero_media;if(p)mkHero(pubUrl(p),/\.(mp4|webm)$/i.test(p));else mkHero('logo-anim.mp4',true)}
+mkHero('logo-anim.mp4',true);
+const hr=$('#heroReset');if(hr)hr.onclick=async()=>{const {error}=await sb.from('pf_settings').update({hero_media:null}).eq('id',1);toast(error?'Failed':'Default animation restored');await loadSettings()};
 /* liquid nav blob + scroll spy */
 function place(){const on=$('#nav a.on');if(!on)return;const b=$('#blob');b.style.left=on.offsetLeft+'px';b.style.width=on.offsetWidth+'px'}
 $$('#nav a').forEach(a=>{a.onmouseenter=()=>{const b=$('#blob');squash(b);b.style.left=a.offsetLeft+'px';b.style.width=a.offsetWidth+'px'};a.onclick=()=>{$$('#nav a').forEach(x=>x.classList.remove('on'));a.classList.add('on')}});
